@@ -33,6 +33,12 @@ $routes->setAutoRoute(true);
 // route since we don't have to scan directories.
 $routes->get('/', 'Home::index');
 
+// Backend
+$routes->group('administrator', ['namespace' => 'App\Controllers\Backend'], function ($routes) {
+    // Dashboard
+    $routes->get('/', 'DashboardController::index', ['as' => 'admin.dashboard.index']);
+});
+
 /*
  * --------------------------------------------------------------------
  * Additional Routing
