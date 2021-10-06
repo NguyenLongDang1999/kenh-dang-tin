@@ -77,3 +77,21 @@ defined('EXIT_USER_INPUT')     || define('EXIT_USER_INPUT', 7); // invalid user 
 defined('EXIT_DATABASE')       || define('EXIT_DATABASE', 8); // database error
 defined('EXIT__AUTO_MIN')      || define('EXIT__AUTO_MIN', 9); // lowest automatically-assigned error code
 defined('EXIT__AUTO_MAX')      || define('EXIT__AUTO_MAX', 125); // highest automatically-assigned error code
+
+/*
+ | --------------------------------------------------------------------------
+ | Status
+ | --------------------------------------------------------------------------
+ */
+defined('STATUS_ACTIVE')            || define('STATUS_ACTIVE', 1);
+defined('STATUS_INACTIVE')          || define('STATUS_INACTIVE', 0);
+
+/*
+ | --------------------------------------------------------------------------
+ | Path URL Image
+ | --------------------------------------------------------------------------
+ */
+defined('PATH_CATEGORY_IMAGE')      || define('PATH_CATEGORY_IMAGE', 'uploads/category/');
+defined('PATH_USER_IMAGE')          || define('PATH_USER_IMAGE', 'uploads/user/');
+defined('PATH_IMAGE_DEFAULT')       || define('PATH_IMAGE_DEFAULT', 'app-assets/images/default/no-image.webp');
+defined('PATH_AVATAR_DEFAULT')      || define('PATH_AVATAR_DEFAULT', 'app-assets/images/portrait/small/avatar-s.png');

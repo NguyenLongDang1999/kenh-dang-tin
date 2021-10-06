@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html class="loading" lang="vi">
+<html class="loading bordered-layout" lang="vi">
 <!-- BEGIN: Head-->
 
 <head>
@@ -25,14 +25,12 @@
     <!-- END: Main Menu-->
 
     <!-- BEGIN: Content-->
-    <div class="app-content content ">
+    <div class="app-content content">
         <div class="content-overlay"></div>
         <div class="header-navbar-shadow"></div>
         <div class="content-wrapper container-xxl p-0">
             <div class="content-header row">
-                <div class="content-header-left col-md-9 col-12 mb-2">
-                    <?= $this->renderSection('content-header') ?>
-                </div>
+                <?= $this->renderSection('content-header') ?>
             </div>
             <div class="content-body">
                 <?= $this->renderSection('content-body') ?>
