@@ -1,21 +1,3 @@
-$.extend($.fn.dataTable.defaults, {
-    language: {
-        sProcessing:
-            '<button class="btn btn-outline-primary" type="button" disabled><span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span><span class="ms-25 align-middle">Loading...</span></button>',
-        sLengthMenu: "Hiển Thị _MENU_ Kết Quả",
-        sZeroRecords: "Không Có Dữ Liệu Nào Được Hiển Thị",
-        sEmptyTable: "Không Có Dữ Liệu Nào Được Hiển Thị",
-        sInfoEmpty: "Hiển Thị Từ 0 Đến 0 Trong Tổng Số 0",
-        sInfo: "Hiển Thị Từ _START_ Đến _END_ Trong Tổng Số _TOTAL_",
-        oPaginate: {
-            sFirst: "Đầu",
-            sPrevious: "&nbsp;",
-            sNext: "&nbsp;",
-            sLast: "Cuối",
-        },
-    },
-});
-
 (function (window, undefined) {
     "use strict";
 
@@ -47,13 +29,13 @@ $.extend($.fn.dataTable.defaults, {
                     }
                 };
                 reader.readAsDataURL(files[0]);
-                $("#avatar-error").remove();
-                $(".btnUpdateProfile").prop("disabled", false);
+                $("#image-error").remove();
+                $(".btn-disabled-image").prop("disabled", false);
             } else {
-                $(".custom-avatar").append(
-                    '<span class="error" id="avatar-error">Tệp này không được chấp nhận.</span>'
+                $(".validate-image").append(
+                    '<span class="error" id="image-error">Tệp này không được chấp nhận.</span>'
                 );
-                $(".btnUpdateProfile").prop("disabled", true);
+                $(".btn-disabled-image").prop("disabled", true);
             }
         });
     }

@@ -183,7 +183,7 @@ Category <?= isset($row) ? 'Update' : 'Create' ?>
 
                     <div class="row">
                         <div class="col-12">
-                            <div class="mb-1">
+                            <div class="mb-1 validate-image">
                                 <?= form_label('Ảnh đại diện danh mục', 'image', ['class' => 'form-label text-capitalize']) ?>
                                 <div class="d-flex flex-column flex-md-row">
                                     <?= img(showCategoryImage(isset($row->image) ? $row->image : NULL), false, ['class' => 'rounded me-2 mb-1 mb-md-0', 'id' => 'blog-feature-image', 'width' => 120, 'height' => 120, 'alt' => 'Category Image']) ?>
@@ -229,7 +229,7 @@ Category <?= isset($row) ? 'Update' : 'Create' ?>
 
                     <div class="row">
                         <div class="col-12">
-                            <?= form_button(['class' => 'btn btn-primary', 'type' => 'submit', 'content' => !isset($row) ? "Thêm Mới" : "Cập Nhật"]) ?>
+                            <?= form_button(['class' => 'btn btn-primary btn-disabled-image', 'type' => 'submit', 'content' => !isset($row) ? "Thêm Mới" : "Cập Nhật"]) ?>
                         </div>
                     </div>
                     <?= form_close() ?>
