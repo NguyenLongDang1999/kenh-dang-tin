@@ -262,21 +262,25 @@ Category List Page
     <div class="row">
         <div class="col-12">
 
-            <div class="mb-2">
-                <a href="<?= route_to('admin.category.create') ?>" class="btn btn-icon btn-outline-primary">
-                    <i data-feather="plus"></i>
-                    <span>Thêm Mới</span>
-                </a>
+            <div class="mb-2 d-flex justify-content-sm-between justify-content-center flex-wrap">
+                <div class="mb-sm-0 mb-25">
+                    <a href="<?= route_to('admin.category.create') ?>" class="btn btn-icon btn-outline-primary">
+                        <i data-feather="plus"></i>
+                        <span>Thêm Mới</span>
+                    </a>
 
-                <a href="<?= route_to('admin.category.recycle') ?>" class="btn btn-icon btn-outline-danger">
-                    <i data-feather="trash"></i>
-                    <span>Thùng Rác</span>
-                </a>
+                    <a href="<?= route_to('admin.category.recycle') ?>" class="btn btn-icon btn-outline-danger">
+                        <i data-feather="trash"></i>
+                        <span>Thùng Rác</span>
+                    </a>
+                </div>
 
-                <a href="<?= route_to('admin.category.reorder') ?>" class="btn btn-icon btn-outline-info">
-                    <i data-feather='shuffle'></i>
-                    <span>Sắp Xếp Các Danh Mục</span>
-                </a>
+                <div class="mt-sm-0 mt-25">
+                    <a href="<?= route_to('admin.category.reorder') ?>" class="btn btn-icon btn-outline-info">
+                        <i data-feather='shuffle'></i>
+                        <span>Sắp Xếp Các Danh Mục</span>
+                    </a>
+                </div>
             </div>
 
             <div class="card">
@@ -314,15 +318,15 @@ Category List Page
                     <?= form_close() ?>
                 </div>
                 <hr class="my-0" />
-                <div class="card-header border-bottom p-1 d-flex justify-content-between">
+                <div class="card-header border-bottom p-1 d-flex justify-content-sm-between justify-content-center">
                     <div class="dt-action-buttons">
-                        <div class="dt-buttons">
+                        <div class="dt-buttons m-0">
                             <?= form_button(['class' => 'btn btn-outline-danger waves-effect', 'content' => '<i data-feather="trash" class="me-25"></i><span>Xóa Tạm Thời</span>', 'id' => 'btn-delete']) ?>
                         </div>
                     </div>
 
                     <div class="dt-action-buttons">
-                        <div class="dt-buttons">
+                        <div class="dt-buttons m-0">
                             <?= form_button(['class' => 'btn btn-outline-primary waves-effect btn-status mx-25', 'content' => '<i data-feather="refresh-ccw" class="me-25"></i><span>Status ON</span>', 'data-status' => STATUS_ACTIVE]) ?>
                             <?= form_button(['class' => 'btn btn-outline-primary waves-effect btn-status', 'content' => '<i data-feather="refresh-ccw" class="me-25"></i><span>Status OFF</span>', 'data-status' => STATUS_INACTIVE]) ?>
                         </div>
