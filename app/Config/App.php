@@ -36,7 +36,7 @@ class App extends BaseConfig
      *
      * @var string
      */
-    public $indexPage = 'index.php';
+    public $indexPage = '';
 
     /**
      * --------------------------------------------------------------------------
@@ -69,7 +69,7 @@ class App extends BaseConfig
      *
      * @var string
      */
-    public $defaultLocale = 'en';
+    public $defaultLocale = 'vi';
 
     /**
      * --------------------------------------------------------------------------
@@ -96,7 +96,7 @@ class App extends BaseConfig
      *
      * @var string[]
      */
-    public $supportedLocales = ['en'];
+    public $supportedLocales = ['vi'];
 
     /**
      * --------------------------------------------------------------------------
@@ -108,7 +108,7 @@ class App extends BaseConfig
      *
      * @var string
      */
-    public $appTimezone = 'America/Chicago';
+    public $appTimezone = 'Asia/Ho_Chi_Minh';
 
     /**
      * --------------------------------------------------------------------------
