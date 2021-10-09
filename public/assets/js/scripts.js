@@ -234,4 +234,91 @@
             ? statusAllItem($("#frmTbList").serialize(), $(this).data("status"))
             : notify_cancel();
     });
+
+    if (quillEditor.length) {
+        var Font = Quill.import("formats/font");
+        Font.whitelist = ["sofia", "slabo", "roboto", "inconsolata", "ubuntu"];
+        Quill.register(Font, true);
+
+        var editor = new Quill("#full-container .editor", {
+            bounds: "#full-container .editor",
+            modules: {
+                toolbar: [
+                    [
+                        {
+                            font: [],
+                        },
+                        {
+                            size: [],
+                        },
+                    ],
+                    ["bold", "italic", "underline", "strike"],
+                    [
+                        {
+                            color: [],
+                        },
+                        {
+                            background: [],
+                        },
+                    ],
+                    [
+                        {
+                            script: "super",
+                        },
+                        {
+                            script: "sub",
+                        },
+                    ],
+                    [
+                        {
+                            header: "1",
+                        },
+                        {
+                            header: "2",
+                        },
+                        "blockquote",
+                        "code-block",
+                    ],
+                    [
+                        {
+                            list: "ordered",
+                        },
+                        {
+                            list: "bullet",
+                        },
+                        {
+                            indent: "-1",
+                        },
+                        {
+                            indent: "+1",
+                        },
+                    ],
+                    [
+                        "direction",
+                        {
+                            align: [],
+                        },
+                    ],
+                    ["link", "image", "video"],
+                    ["clean"],
+                ],
+            },
+            theme: "snow",
+        });
+
+        $(document).on("submit", ".form-editor", function (e) {
+            e.preventDefault();
+
+            var descriptionError = $("#description-error"),
+                description = document.querySelector("input[name=description]");
+
+            description.value = editor.root.innerHTML;
+            if (description.value === "<p><br></p>") {
+                descriptionError.addClass("d-block");
+                descriptionError.text("Nội dung chi tiết không được bỏ trống.");
+            } else {
+                e.currentTarget.submit();
+            }
+        });
+    }
 })(window);

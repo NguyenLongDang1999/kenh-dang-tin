@@ -74,6 +74,38 @@ $routes->group('administrator', ['namespace' => 'App\Controllers\Backend'], func
         // Check Exists
         $routes->post('checkExists', 'CategoryController::checkExists', ['as' => 'admin.category.checkExists']);
     });
+
+    // Pages
+    $routes->group('pages', ['namespace' => 'App\Controllers\Backend'], function ($routes) {
+        // Index
+        $routes->get('/', 'PagesController::index', ['as' => 'admin.pages.index']);
+        $routes->get('getList', 'PagesController::getList', ['as' => 'admin.pages.getList']);
+
+        // Reorder
+        $routes->get('reorder', 'PagesController::reorder', ['as' => 'admin.pages.reorder']);
+        $routes->post('postOrder', 'PagesController::postOrder', ['as' => 'admin.pages.postOrder']);
+
+        // Create
+        $routes->get('create', 'PagesController::create', ['as' => 'admin.pages.create']);
+        $routes->post('store', 'PagesController::store', ['as' => 'admin.pages.store']);
+
+        // Update
+        $routes->get('edit/(:num)', 'PagesController::edit/$1', ['as' => 'admin.pages.edit']);
+        $routes->post('update/(:num)', 'PagesController::update/$1', ['as' => 'admin.pages.update']);
+
+        // Recycle
+        $routes->get('recycle', 'PagesController::recycle', ['as' => 'admin.pages.recycle']);
+        $routes->get('getListRecycle', 'PagesController::getListRecycle', ['as' => 'admin.pages.getListRecycle']);
+
+        // Update Multi Column
+        $routes->post('multiStatus', 'PagesController::multiStatus', ['as' => 'admin.pages.multiStatus']);
+        $routes->post('multiDestroy', 'PagesController::multiDestroy', ['as' => 'admin.pages.multiDestroy']);
+        $routes->post('multiRestore', 'PagesController::multiRestore', ['as' => 'admin.pages.multiRestore']);
+        $routes->post('multiPurgeDestroy', 'PagesController::multiPurgeDestroy', ['as' => 'admin.pages.multiPurgeDestroy']);
+
+        // Check Exists
+        $routes->post('checkExists', 'PagesController::checkExists', ['as' => 'admin.pages.checkExists']);
+    });
 });
 
 /*

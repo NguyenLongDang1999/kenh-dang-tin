@@ -44,7 +44,7 @@
                 </a>
             </li>
             <li class="navigation-header">
-                <span>Thống Kê</span>
+                <span>Quản lý tin tức</span>
                 <i data-feather="more-horizontal"></i>
             </li>
             <li class="nav-item">
@@ -75,6 +75,33 @@
                         <a class="d-flex align-items-center" href="<?= route_to('admin.category.reorder') ?>">
                             <i data-feather="circle"></i>
                             <span class="menu-item text-truncate text-capitalize">Sắp xếp danh mục</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+
+            <li class="nav-item mt-50">
+                <a class="d-flex align-items-center" href="#">
+                    <i data-feather="book-open"></i>
+                    <span class="menu-title text-truncate text-capitalize">Quản lý trang</span>
+                </a>
+                <ul class="menu-content">
+                    <li class="<?= getMenuActive('pages') ?>">
+                        <a class="d-flex align-items-center" href="<?= route_to('admin.pages.index') ?>">
+                            <i data-feather="circle"></i>
+                            <span class="menu-item text-truncate text-capitalize">Danh sách</span>
+                        </a>
+                    </li>
+                    <li class="<?= getMenuActive('pages/recycle') ?>">
+                        <a class="d-flex align-items-center" href="<?= route_to('admin.pages.recycle') ?>">
+                            <i data-feather="circle"></i>
+                            <span class="menu-item text-truncate text-capitalize">Thùng rác</span>
+                        </a>
+                    </li>
+                    <li class="<?= getMenuActive('pages/create') ?>">
+                        <a class="d-flex align-items-center" href="<?= route_to('admin.pages.create') ?>">
+                            <i data-feather="circle"></i>
+                            <span class="menu-item text-truncate text-capitalize">Thêm mới</span>
                         </a>
                     </li>
                 </ul>
