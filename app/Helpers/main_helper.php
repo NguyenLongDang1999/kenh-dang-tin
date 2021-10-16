@@ -9,6 +9,13 @@ function getMenuActive($patterns, $activeClass = "active")
     }
 }
 
+function getMenuUserActive($patterns, $activeClass = "active")
+{
+    if (url_is('/' . $patterns)) {
+        return $activeClass;
+    }
+}
+
 function getOptionSelectStatus()
 {
     $option = [
@@ -29,6 +36,21 @@ function showCategoryImage($image)
             $path = $image;
         } else {
             $path = PATH_CATEGORY_IMAGE . $image;
+        }
+    }
+
+    return $path;
+}
+
+function showUserImage($user_avatar)
+{
+    if (is_null($user_avatar)) {
+        $path = base_url(PATH_AVATAR_DEFAULT);
+    } else {
+        if (strpos($user_avatar, 'https') !== false) {
+            $path = $user_avatar;
+        } else {
+            $path = base_url(PATH_USER_IMAGE . $user_avatar);
         }
     }
 
@@ -119,4 +141,21 @@ function deleteMultipleImage($path, $array)
             }
         }
     }
+}
+
+function showGender($gender)
+{
+    $html = '';
+    
+    if (!is_null($gender)) {
+        if ($gender === GENDER_MALE) {
+            $html .= 'Nam';
+        } else {
+            $html .= 'Nữ';
+        }
+    } else {
+        $html .= 'Undefined';
+    }
+
+    return $html;
 }

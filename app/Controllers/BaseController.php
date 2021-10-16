@@ -39,7 +39,8 @@ class BaseController extends Controller
         'html',
         'main',
         'form',
-        'text'
+        'text',
+        'auth'
     ];
 
     /**

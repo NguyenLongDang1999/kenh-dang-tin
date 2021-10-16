@@ -80,11 +80,27 @@ defined('EXIT__AUTO_MAX')      || define('EXIT__AUTO_MAX', 125); // highest auto
 
 /*
  | --------------------------------------------------------------------------
+ | Config
+ | --------------------------------------------------------------------------
+ */
+defined('CONFIG_NAME')              || define('CONFIG_NAME', 'KenhDangTin');
+defined('CONFIG_EMAIL')             || define('CONFIG_EMAIL', 'ninhhoaclub.raovat@gmail.com');
+
+/*
+ | --------------------------------------------------------------------------
  | Status
  | --------------------------------------------------------------------------
  */
 defined('STATUS_ACTIVE')            || define('STATUS_ACTIVE', 1);
 defined('STATUS_INACTIVE')          || define('STATUS_INACTIVE', 0);
+
+/*
+ | --------------------------------------------------------------------------
+ | Gender
+ | --------------------------------------------------------------------------
+ */
+defined('GENDER_FEMALE')            || define('GENDER_FEMALE', 0);
+defined('GENDER_MALE')              || define('GENDER_MALE', 1);
 
 /*
  | --------------------------------------------------------------------------
