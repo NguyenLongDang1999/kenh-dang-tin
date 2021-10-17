@@ -183,10 +183,38 @@ class Category extends Model
     }
 
     public function getListCategory()
-	{
-		return $this->select('name, slug, image, description, id')
-			->where('status', STATUS_ACTIVE)
-			->where('parent_id', 0)
-			->findAll(6);
-	}
+    {
+        return $this->select('name, slug, image, description, id')
+            ->where('status', STATUS_ACTIVE)
+            ->where('parent_id', 0)
+            ->findAll(6);
+    }
+
+    public function getCategoryList($parent_id = 0)
+    {
+        return $this->select('name, slug, image, id')
+            ->where('status', STATUS_ACTIVE)
+            ->where('parent_id', $parent_id)
+            ->findAll();
+    }
+
+    public function getCategoryListParent($parent_id = 0)
+    {
+        return $this->select('name, slug, image, id')
+            ->where('status', STATUS_ACTIVE)
+            ->whereIn('parent_id', $parent_id)
+            ->findAll();
+    }
+
+    public function getCategoryRecursive($parent_id)
+    {
+        $listCatId = array($parent_id);
+        $model = $this->getCategoryList($parent_id);
+
+        foreach ($model as $row) {
+            $listCatId = array_merge($listCatId, $this->getCategoryRecursive($row->id));
+        }
+
+        return $listCatId;
+    }
 }

@@ -33,6 +33,12 @@ $routes->setAutoRoute(true);
 $routes->group('', ['namespace' => 'App\Controllers\Frontend'], function ($routes) {
     // Home
     $routes->get('/', 'HomeController::index', ['as' => 'user.home.index']);
+
+    // Category
+    $routes->get('forums/(:any)/s(:num)', 'CategoryController::category/$1/$2', ['as' => 'user.category.category']);
+    $routes->get('danh-muc-san-pham', 'CategoryController::index', ['as' => 'user.category.index']);
+    $routes->get('san-pham-moi-nhat', 'CategoryController::newProduct', ['as' => 'user.category.newProduct']);
+    $routes->get('san-pham-vip', 'CategoryController::productVip', ['as' => 'user.category.productVip']);
 });
 
 // Backend
