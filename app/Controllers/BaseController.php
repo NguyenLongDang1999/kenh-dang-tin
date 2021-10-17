@@ -40,7 +40,8 @@ class BaseController extends Controller
         'main',
         'form',
         'text',
-        'auth'
+        'auth',
+        'number'
     ];
 
     /**

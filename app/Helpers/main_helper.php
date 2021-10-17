@@ -42,6 +42,40 @@ function showCategoryImage($image)
     return $path;
 }
 
+function showProductImage($image)
+{
+    if (is_null($image)) {
+        $path = base_url(PATH_IMAGE_DEFAULT);
+    } else {
+        if (strpos($image, 'https') !== false) {
+            $path = $image;
+        } else {
+            $path = PATH_PRODUCT_IMAGE . $image;
+        }
+    }
+
+    return $path;
+}
+
+function showProductMultiImage($thumb_list, $is_detail = false)
+{
+    if (!empty($thumb_list)) {
+        if (strpos($thumb_list, 'https') !== false) {
+            $path = $thumb_list;
+        } else {
+            if (!$is_detail) {
+                $path = base_url(PATH_PRODUCT_SMALL_IMAGE . $thumb_list);
+            } else {
+                $path = base_url(PATH_PRODUCT_MEDIUM_IMAGE . $thumb_list);
+            }
+        }
+    } else {
+        $path = base_url(PATH_IMAGE_DEFAULT);
+    }
+
+    return $path;
+}
+
 function showUserImage($user_avatar)
 {
     if (is_null($user_avatar)) {
@@ -132,6 +166,42 @@ function uploadOneFile($file, $path, $resize, $update = false, $oldImage = '')
     }
 }
 
+function uploadMultipleFiles($files, $path, $update = false, $image_list = [])
+{
+    $thumb_list = '';
+
+    foreach ($files as $file) {
+        if ($file->isValid() && !$file->hasMoved()) {
+            $fileName = $file->getRandomName();
+            $file->move($path, $fileName);
+            $fileNameNew = changeFileNameNew($fileName);
+
+            $dataSmall = ['resizeX' => '350', 'resizeY' => '250'];
+            $dataMedium = ['resizeX' => '650', 'resizeY' => '450'];
+
+            imageManipulation($path, $fileName, $fileNameNew, 'small', $dataSmall);
+            imageManipulation($path, $fileName, $fileNameNew, 'medium', $dataMedium);
+            deleteImage($path, $fileName);
+
+            if ($update) {
+                if (!empty($image_list)) {
+                    $thumb_list .= $image_list . ',' . $fileNameNew . ',';
+                } else {
+                    $thumb_list .= $fileNameNew . ',';
+                }
+            }
+
+            $thumb_list .= $fileNameNew . ',';
+        } else {
+            $thumb_list .= $image_list;
+        }
+    }
+
+    $thumb_list = rtrim($thumb_list, ',');
+
+    return $thumb_list;
+}
+
 function deleteMultipleImage($path, $array)
 {
     if (count($array) > 0) {
@@ -143,10 +213,21 @@ function deleteMultipleImage($path, $array)
     }
 }
 
+function deleteMultipleProductImage($path, $array)
+{
+    if (!empty($array[0])) {
+        foreach ($array as $item) {
+            if (!is_null($item)) {
+                deleteImage($path, $item);
+            }
+        }
+    }
+}
+
 function showGender($gender)
 {
     $html = '';
-    
+
     if (!is_null($gender)) {
         if ($gender === GENDER_MALE) {
             $html .= 'Nam';

@@ -15,7 +15,9 @@
         select = $(".select2"),
         blogFeatureImage = $("#blog-feature-image"),
         blogImageInput = $("#blogCustomFile"),
-        quillEditor = $("#full-container .editor");
+        quillEditor = $("#full-container .editor"),
+        numeralMask = $(".numeral-mask"),
+        inputImagesStore = $(".input-images-1");
 
     // Methods
     if (blogImageInput.length) {
@@ -319,6 +321,22 @@
             } else {
                 e.currentTarget.submit();
             }
+        });
+    }
+
+    if (numeralMask.length) {
+        new Cleave(numeralMask, {
+            numeral: true,
+            numeralThousandsGroupStyle: "thousand",
+        });
+    }
+
+    if (inputImagesStore.length) {
+        inputImagesStore.imageUploader({
+            maxFiles: 12,
+            maxSize: 10 * 1024 * 1024,
+            extensions: [".jpg", ".jpeg", ".png", ".gif"],
+            label: "Kéo thả hoặc chọn hình vào đây",
         });
     }
 })(window);

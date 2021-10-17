@@ -96,6 +96,14 @@ defined('STATUS_INACTIVE')          || define('STATUS_INACTIVE', 0);
 
 /*
  | --------------------------------------------------------------------------
+ | Featured
+ | --------------------------------------------------------------------------
+ */
+defined('FEATURED_ACTIVE')           || define('FEATURED_ACTIVE', 1);
+defined('FEATURED_INACTIVE')         || define('FEATURED_INACTIVE', 0);
+
+/*
+ | --------------------------------------------------------------------------
  | Gender
  | --------------------------------------------------------------------------
  */
@@ -108,6 +116,9 @@ defined('GENDER_MALE')              || define('GENDER_MALE', 1);
  | --------------------------------------------------------------------------
  */
 defined('PATH_CATEGORY_IMAGE')      || define('PATH_CATEGORY_IMAGE', 'uploads/category/');
+defined('PATH_PRODUCT_IMAGE')       || define('PATH_PRODUCT_IMAGE', 'uploads/product/');
+defined('PATH_PRODUCT_SMALL_IMAGE') || define('PATH_PRODUCT_SMALL_IMAGE', 'uploads/product/small/');
+defined('PATH_PRODUCT_MEDIUM_IMAGE') || define('PATH_PRODUCT_MEDIUM_IMAGE', 'uploads/product/medium/');
 defined('PATH_USER_IMAGE')          || define('PATH_USER_IMAGE', 'uploads/user/');
 defined('PATH_IMAGE_DEFAULT')       || define('PATH_IMAGE_DEFAULT', 'app-assets/images/default/no-image.webp');
 defined('PATH_AVATAR_DEFAULT')      || define('PATH_AVATAR_DEFAULT', 'app-assets/images/portrait/small/avatar-s.png');

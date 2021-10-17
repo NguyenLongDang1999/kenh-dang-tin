@@ -226,7 +226,9 @@ class CategoryController extends BaseController
                 'resizeX' => '120',
                 'resizeY' => '120',
             ];
-            $input['image'] =  uploadOneFile($file, PATH_CATEGORY_IMAGE, $resize, true, $input['checkImg']);
+            $image = uploadOneFile($file, PATH_CATEGORY_IMAGE, $resize, true, $input['checkImg']);
+
+            $input['image'] = !is_null($image) ? $image : $input['checkImg'];
         }
 
         $input['slug'] = $this->slug->str_slug($input['name']);

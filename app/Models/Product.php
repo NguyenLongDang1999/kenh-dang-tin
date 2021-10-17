@@ -1,0 +1,144 @@
+<?php
+
+namespace App\Models;
+
+use CodeIgniter\Model;
+
+class Product extends Model
+{
+    protected $table                = 'product';
+    protected $primaryKey           = 'id';
+    protected $returnType           = 'object';
+    protected $useSoftDeletes       = true;
+    protected $allowedFields        = [
+        'name',
+        'slug',
+        'image',
+        'image_list',
+        'description',
+        'quantity',
+        'cat_id',
+        'brand_id',
+        'number_buy',
+        'sale',
+        'price',
+        'view',
+        'featured',
+        'meta_title',
+        'meta_keyword',
+        'meta_description',
+        'status',
+        'deleted_at'
+    ];
+
+    // Dates
+    protected $useTimestamps        = true;
+    protected $dateFormat           = 'datetime';
+    protected $createdField         = 'created_at';
+    protected $updatedField         = 'updated_at';
+    protected $deletedField         = 'deleted_at';
+
+    // Validation
+    protected $validationRules      = [];
+    protected $validationMessages   = [];
+    protected $skipValidation       = false;
+    protected $cleanValidationRules = true;
+
+    public function getList($input = array())
+    {
+        $model = $this->select('
+            product.id, product.name, product.view, product.image, product.status, product.created_at,
+            product.price, product.sale, product.featured,
+            category.name as catName')
+            ->join('category', 'category.id = product.cat_id');
+
+        if (isset($input['search']['name']) && $input['search']['name'] != "") {
+            $model->like('product.name', trim($input['search']['name']));
+        }
+
+        if (isset($input['search']['status']) && $input['search']['status'] != "") {
+            $model->where('product.status', $input['search']['status']);
+        }
+
+        if (isset($input['search']['cat_id']) && $input['search']['cat_id'] != "") {
+            $model->where('product.cat_id', $input['search']['cat_id']);
+        }
+
+        if (isset($input['search']['featured']) && $input['search']['featured'] != "") {
+            $model->where('product.featured', $input['search']['featured']);
+        }
+
+        $result['total'] = $model->countAllResults(false);
+
+        if (isset($input['iSortCol_0'])) {
+            $sorting_mapping_array = array(
+                '7' => 'product.created_at',
+            );
+
+            $order = "desc";
+            if (isset($input['sSortDir_0'])) {
+                $order = $input['sSortDir_0'];
+            }
+
+            if (isset($sorting_mapping_array[$input['iSortCol_0']])) {
+                $model->orderBy($sorting_mapping_array[$input['iSortCol_0']], $order);
+            }
+        }
+
+        $result['model'] = $model->findAll($input['iDisplayLength'], $input['iDisplayStart']);
+
+        return $result;
+    }
+
+    public function getListRecycle($input = array())
+    {
+        $model = $this->select('
+            product.id, product.name, product.view, product.image, product.status, product.created_at,
+            product.price, product.sale, product.featured,
+            category.name as catName')
+            ->join('category', 'category.id = product.cat_id')
+            ->onlyDeleted();
+
+        $result['total'] = $model->countAllResults(false);
+
+        if (isset($input['iSortCol_0'])) {
+            $sorting_mapping_array = array(
+                '6' => 'product.created_at',
+            );
+
+            $order = "desc";
+            if (isset($input['sSortDir_0'])) {
+                $order = $input['sSortDir_0'];
+            }
+
+            if (isset($sorting_mapping_array[$input['iSortCol_0']])) {
+                $model->orderBy($sorting_mapping_array[$input['iSortCol_0']], $order);
+            }
+        }
+
+        $result['model'] = $model->findAll($input['iDisplayLength'], $input['iDisplayStart']);
+
+        return $result;
+    }
+
+    public function getMultiProduct($id)
+    {
+        return $this->select('image, image_list')->whereIn('id', $id)->withDeleted()->findAll();
+    }
+
+    public function getDetailProduct($id, $recycle = false)
+    {
+        $model = $this->select('
+            id, name, cat_id, price, sale, brand_id, description, quantity, featured,
+            meta_title, meta_keyword, meta_description, image, status, image_list
+        ');
+
+        if ($recycle) $model->withDeleted();
+        return $model->find($id);
+    }
+
+    public function checkExists($slug)
+    {
+        return $this->select('id')->where('slug', $slug)->countAllResults();
+    }
+}

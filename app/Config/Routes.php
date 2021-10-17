@@ -77,6 +77,35 @@ $routes->group('administrator', ['namespace' => 'App\Controllers\Backend'], func
         $routes->post('checkExists', 'CategoryController::checkExists', ['as' => 'admin.category.checkExists']);
     });
 
+    // Product
+    $routes->group('product', ['namespace' => 'App\Controllers\Backend'], function ($routes) {
+        // Index
+        $routes->get('/', 'ProductController::index', ['as' => 'admin.product.index']);
+        $routes->get('getList', 'ProductController::getList', ['as' => 'admin.product.getList']);
+
+        // Create
+        $routes->get('create', 'ProductController::create', ['as' => 'admin.product.create']);
+        $routes->post('store', 'ProductController::store', ['as' => 'admin.product.store']);
+
+        // Update
+        $routes->get('edit/(:num)', 'ProductController::edit/$1', ['as' => 'admin.product.edit']);
+        $routes->post('update/(:num)', 'ProductController::update/$1', ['as' => 'admin.product.update']);
+        $routes->post('update/deleteProductImage', 'ProductController::deleteProductImage', ['as' => 'admin.product.deleteProductImage']);
+
+        // Recycle
+        $routes->get('recycle', 'ProductController::recycle', ['as' => 'admin.product.recycle']);
+        $routes->get('getListRecycle', 'ProductController::getListRecycle', ['as' => 'admin.product.getListRecycle']);
+
+        // Update Multi Column
+        $routes->post('multiStatus', 'ProductController::multiStatus', ['as' => 'admin.product.multiStatus']);
+        $routes->post('multiDestroy', 'ProductController::multiDestroy', ['as' => 'admin.product.multiDestroy']);
+        $routes->post('multiRestore', 'ProductController::multiRestore', ['as' => 'admin.product.multiRestore']);
+        $routes->post('multiPurgeDestroy', 'ProductController::multiPurgeDestroy', ['as' => 'admin.product.multiPurgeDestroy']);
+
+        // Check Exists
+        $routes->post('checkExists', 'ProductController::checkExists', ['as' => 'admin.product.checkExists']);
+    });
+
     // Pages
     $routes->group('pages', ['namespace' => 'App\Controllers\Backend'], function ($routes) {
         // Index
