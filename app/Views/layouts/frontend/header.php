@@ -176,7 +176,7 @@
             <?php else : ?>
                 <li class="nav-item ms-1">
                     <div class="btn-group">
-                        <button type="button" class="btn btn-outline-primary dropdown-toggle box-shadow-0" data-bs-toggle="dropdown" aria-expanded="false">
+                        <button type="button" class="btn btn-outline-primary dropdown-toggle box-shadow-0 btn-sm" data-bs-toggle="dropdown" aria-expanded="false">
                             <i data-feather='log-in'></i>
                             <span class="ms-25">Đăng Nhập</span>
                         </button>

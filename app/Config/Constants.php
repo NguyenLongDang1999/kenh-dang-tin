@@ -120,5 +120,6 @@ defined('PATH_PRODUCT_IMAGE')       || define('PATH_PRODUCT_IMAGE', 'uploads/pro
 defined('PATH_PRODUCT_SMALL_IMAGE') || define('PATH_PRODUCT_SMALL_IMAGE', 'uploads/product/small/');
 defined('PATH_PRODUCT_MEDIUM_IMAGE') || define('PATH_PRODUCT_MEDIUM_IMAGE', 'uploads/product/medium/');
 defined('PATH_USER_IMAGE')          || define('PATH_USER_IMAGE', 'uploads/user/');
+defined('PATH_LAZY_LOADING')        || define('PATH_LAZY_LOADING', 'app-assets/images/default/loader.gif');
 defined('PATH_IMAGE_DEFAULT')       || define('PATH_IMAGE_DEFAULT', 'app-assets/images/default/no-image.webp');
 defined('PATH_AVATAR_DEFAULT')      || define('PATH_AVATAR_DEFAULT', 'app-assets/images/portrait/small/avatar-s.png');

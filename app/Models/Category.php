@@ -181,4 +181,12 @@ class Category extends Model
 
         return $option;
     }
+
+    public function getListCategory()
+	{
+		return $this->select('name, slug, image, description, id')
+			->where('status', STATUS_ACTIVE)
+			->where('parent_id', 0)
+			->findAll(6);
+	}
 }

@@ -202,6 +202,12 @@ function uploadMultipleFiles($files, $path, $update = false, $image_list = [])
     return $thumb_list;
 }
 
+function getDateHumanize($date)
+{
+    $time = Time::parse($date);
+    return $time->humanize();
+}
+
 function deleteMultipleImage($path, $array)
 {
     if (count($array) > 0) {

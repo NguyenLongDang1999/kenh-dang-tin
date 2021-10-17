@@ -141,4 +141,23 @@ class Product extends Model
     {
         return $this->select('id')->where('slug', $slug)->countAllResults();
     }
+
+    public function getProductHome($featured = false)
+    {
+        $model = $this->select('
+            product.image, product.slug, product.name, product.price, product.featured, product.view, 
+            product.id, product.created_at, product.sale,
+            category.name as catName')
+            ->join('category', 'category.id = product.cat_id')
+            ->where('category.status', STATUS_ACTIVE)
+            ->orderBy('product.created_at', 'desc');
+
+        if ($featured) {
+            $model = $model->where('product.featured', FEATURED_ACTIVE);
+        } else {
+            $model = $model->where('product.featured', FEATURED_INACTIVE);
+        }
+
+        return $model->findAll(8);
+    }
 }
