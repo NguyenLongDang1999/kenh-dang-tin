@@ -39,6 +39,9 @@ $routes->group('', ['namespace' => 'App\Controllers\Frontend'], function ($route
     $routes->get('danh-muc-san-pham', 'CategoryController::index', ['as' => 'user.category.index']);
     $routes->get('san-pham-moi-nhat', 'CategoryController::newProduct', ['as' => 'user.category.newProduct']);
     $routes->get('san-pham-hot', 'CategoryController::vipProduct', ['as' => 'user.category.vipProduct']);
+
+    // Product
+    $routes->get('threads/(:any)/s(:num)', 'ProductController::showDetail/$1/$2', ['as' => 'user.product.showDetail']);
 });
 
 // Backend

@@ -3,7 +3,7 @@
         <div class="col mb-3">
             <div class="card h-100">
                 <div class="text-center position-relative">
-                    <a href="<?= route_to('user.product.detail', esc($item->slug), esc($item->id)) ?>">
+                    <a href="<?= route_to('user.product.showDetail', esc($item->slug), esc($item->id)) ?>">
                         <?= img(PATH_LAZY_LOADING, false, ['class' => 'card-img-top card-img lazy loading', 'alt' => esc($item->name), 'data-src' => showProductImage(esc($item->image))]) ?>
 
                         <?php if ($item->featured == FEATURED_ACTIVE) : ?>
@@ -26,7 +26,7 @@
                 </div>
                 <div class="card-body">
                     <h4 class="card-title" data-bs-toggle="tooltip" data-bs-placement="bottom" title="<?= esc($item->name) ?>">
-                        <a class="text-body" href="<?= route_to('user.product.detail', esc($item->slug), esc($item->id)) ?>"><?= esc($item->name) ?></a>
+                        <a class="text-body" href="<?= route_to('user.product.showDetail', esc($item->slug), esc($item->id)) ?>"><?= esc($item->name) ?></a>
                     </h4>
                     <div class="item-wrapper mb-50">
                         <div class="d-flex align-items-center flex-wrap">

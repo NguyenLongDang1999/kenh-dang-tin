@@ -149,6 +149,7 @@ class Product extends Model
             product.id, product.created_at, product.sale,
             category.name as catName')
             ->join('category', 'category.id = product.cat_id')
+            ->where('product.status', STATUS_ACTIVE)
             ->where('category.status', STATUS_ACTIVE)
             ->orderBy('product.created_at', 'desc');
 
@@ -168,6 +169,7 @@ class Product extends Model
             product.id, product.created_at, product.sale,
             category.name as catName')
             ->join('category', 'category.id = product.cat_id')
+            ->where('product.status', STATUS_ACTIVE)
             ->where('category.status', STATUS_ACTIVE);
 
         if ($is_vip) {
@@ -256,6 +258,7 @@ class Product extends Model
             category.name as catName')
             ->join('category', 'category.id = product.cat_id')
             ->where('category.status', STATUS_ACTIVE)
+            ->where('product.status', STATUS_ACTIVE)
             ->orderBy('product.created_at', 'desc')
             ->groupStart()
             ->where($str)
@@ -328,5 +331,19 @@ class Product extends Model
         }
 
         return $query;
+    }
+
+    public function getProductDetail($productSlug, $id)
+    {
+        return $this->select('
+            product.name, product.id,
+            category.id as categoryID')
+            ->join('category', 'category.id = product.cat_id')
+            ->where('category.status', STATUS_ACTIVE)
+            ->where('product.status', STATUS_ACTIVE)
+            ->where('product.slug', $productSlug)
+            ->where('product.id', $id)
+            ->orderBy('product.created_at', 'desc')
+            ->first();
     }
 }
