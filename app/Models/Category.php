@@ -192,7 +192,7 @@ class Category extends Model
 
     public function getCategoryList($parent_id = 0)
     {
-        return $this->select('name, slug, image, id')
+        return $this->select('name, slug, description, image, id')
             ->where('status', STATUS_ACTIVE)
             ->where('parent_id', $parent_id)
             ->findAll();
@@ -216,5 +216,44 @@ class Category extends Model
         }
 
         return $listCatId;
+    }
+
+    public function getShowCategory($slug, $id)
+    {
+        $model = $this->select('id, slug, name, parent_id, description, meta_keyword, meta_description, image')
+            ->where('status', STATUS_ACTIVE)
+            ->where('slug', $slug);
+
+        return $model->find($id);
+    }
+
+    public function categoryBreadcrumbs($id)
+    {
+        return $this->select('id, name, parent_id, slug')
+            ->where('id', $id)
+            ->where('status', STATUS_ACTIVE)
+            ->get()
+            ->getRowArray();
+    }
+
+    public function show_breadcumb($id, $is_detail = false)
+    {
+        $row = $this->categoryBreadcrumbs($id);
+        $uri = service('uri');
+
+        if ($row['parent_id'] == 0) {
+            return '<li class="breadcrumb-item text-capitalize active" aria-current="page"><a href="' . route_to('user.category.category', esc($row['slug']), esc($row['id'])) . '">' . esc($row['name']) . '</a></li>';
+        } else {
+            if ($is_detail) {
+                $html = '<li class="breadcrumb-item text-capitalize"><a href="' . route_to('user.category.category', esc($row['slug']), esc($row['id'])) . '">' . esc($row['name']) . '</a></li>';
+            } else {
+                if ($uri->getSegment(2) == $row['slug']) {
+                    $html = '<li class="breadcrumb-item text-capitalize active" aria-current="page">' . esc($row['name']) . '</li>';
+                } else {
+                    $html = '<li class="breadcrumb-item text-capitalize" aria-current="page"><a href="' . route_to('user.category.category', esc($row['slug']), esc($row['id'])) . '">' . esc($row['name']) . '</a></li>';
+                }
+            }
+            return $this->show_breadcumb(esc($row['parent_id'])) . $html;
+        }
     }
 }

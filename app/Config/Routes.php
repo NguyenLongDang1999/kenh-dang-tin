@@ -38,7 +38,7 @@ $routes->group('', ['namespace' => 'App\Controllers\Frontend'], function ($route
     $routes->get('forums/(:any)/s(:num)', 'CategoryController::category/$1/$2', ['as' => 'user.category.category']);
     $routes->get('danh-muc-san-pham', 'CategoryController::index', ['as' => 'user.category.index']);
     $routes->get('san-pham-moi-nhat', 'CategoryController::newProduct', ['as' => 'user.category.newProduct']);
-    $routes->get('san-pham-vip', 'CategoryController::productVip', ['as' => 'user.category.productVip']);
+    $routes->get('san-pham-hot', 'CategoryController::vipProduct', ['as' => 'user.category.vipProduct']);
 });
 
 // Backend

@@ -20,7 +20,7 @@ Tất cả danh mục sản phẩm tại <?= base_url() ?>
                             </li>
                             <li class="breadcrumb-item">
                                 <a href="<?= route_to('user.category.index') ?>" class="text-capitalize">
-                                    Danh mục
+                                    Danh mục sản phẩm
                                 </a>
                             </li>
                             <li class="breadcrumb-item text-capitalize active" aria-current="page">

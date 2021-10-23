@@ -160,4 +160,173 @@ class Product extends Model
 
         return $model->findAll(8);
     }
+
+    public function getProductCategory($input = array(), $count = false, $is_vip = false)
+    {
+        $query = $this->select('
+            product.image, product.slug, product.name, product.price, product.featured, product.view, 
+            product.id, product.created_at, product.sale,
+            category.name as catName')
+            ->join('category', 'category.id = product.cat_id')
+            ->where('category.status', STATUS_ACTIVE);
+
+        if ($is_vip) {
+            $query = $query->where('product.featured', FEATURED_ACTIVE);
+        }
+
+        if (isset($input['price_range']) && $input['price_range'] != '') {
+            if ($input['price_range'] == 1) {
+                $query = $query->where('product.price <=', 1000000);
+            }
+
+            if ($input['price_range'] == 2) {
+                $query = $query->where('product.price >=', 1000000);
+                $query = $query->where('product.price <=', 100000000);
+            }
+
+            if ($input['price_range'] == 3) {
+                $query = $query->where('product.price >=', 100000000);
+                $query = $query->where('product.price <=', 1000000000);
+            }
+
+            if ($input['price_range'] == 4) {
+                $query = $query->where('product.price >=', 1000000000);
+            }
+        }
+
+        if (isset($input['sort_filter']) && $input['sort_filter'] != '') {
+            if ($input['sort_filter'] == 0) {
+                $query = $query->orderBy('product.created_at', 'desc');
+            }
+
+            if ($input['sort_filter'] == 1) {
+                $query = $query->orderBy('product.created_at', 'asc');
+            }
+
+            if ($input['sort_filter'] == 2) {
+                $query = $query->orderBy('product.view', 'asc');
+            }
+
+            if ($input['sort_filter'] == 3) {
+                $query = $query->orderBy('product.view', 'desc');
+            }
+
+            if ($input['sort_filter'] == 4) {
+                $query = $query->orderBy('product.price', 'asc');
+            }
+
+            if ($input['sort_filter'] == 5) {
+                $query = $query->orderBy('product.price', 'desc');
+            }
+
+            if ($input['sort_filter'] == 6) {
+                $query = $query->orderBy('product.name', 'asc');
+            }
+
+            if ($input['sort_filter'] == 7) {
+                $query = $query->orderBy('product.name', 'desc');
+            }
+        } else {
+            $query = $query->orderBy('product.created_at', 'desc');
+        }
+
+        if ($count) {
+            $query = $query->countAllResults();
+        } else {
+            if (isset($input['paginate']) && $input['paginate'] != '') {
+                $query = $query->paginate($input['paginate']);
+            } else {
+                $query = $query->paginate(18);
+            }
+        }
+
+        return $query;
+    }
+
+    public function getProductShowByCat($input = array(), $count = false, $listCatid)
+    {
+        $str = "";
+        foreach ($listCatid as $item) {
+            $str .= " cat_id = $item OR";
+        }
+        $str = rtrim($str, 'OR ');
+        $query = $this->select('
+            product.image, product.slug, product.name, product.price, product.featured, product.view, 
+            product.id, product.created_at, product.sale,
+            category.name as catName')
+            ->join('category', 'category.id = product.cat_id')
+            ->where('category.status', STATUS_ACTIVE)
+            ->orderBy('product.created_at', 'desc')
+            ->groupStart()
+            ->where($str)
+            ->groupEnd();
+
+        if (isset($input['price_range']) && $input['price_range'] != '') {
+            if ($input['price_range'] == 1) {
+                $query = $query->where('product.price <=', 1000000);
+            }
+
+            if ($input['price_range'] == 2) {
+                $query = $query->where('product.price >=', 1000000);
+                $query = $query->where('product.price <=', 100000000);
+            }
+
+            if ($input['price_range'] == 3) {
+                $query = $query->where('product.price >=', 100000000);
+                $query = $query->where('product.price <=', 1000000000);
+            }
+
+            if ($input['price_range'] == 4) {
+                $query = $query->where('product.price >=', 1000000000);
+            }
+        }
+
+        if (isset($input['sort_filter']) && $input['sort_filter'] != '') {
+            if ($input['sort_filter'] == 0) {
+                $query = $query->orderBy('product.created_at', 'desc');
+            }
+
+            if ($input['sort_filter'] == 1) {
+                $query = $query->orderBy('product.created_at', 'asc');
+            }
+
+            if ($input['sort_filter'] == 2) {
+                $query = $query->orderBy('product.view', 'asc');
+            }
+
+            if ($input['sort_filter'] == 3) {
+                $query = $query->orderBy('product.view', 'desc');
+            }
+
+            if ($input['sort_filter'] == 4) {
+                $query = $query->orderBy('product.price', 'asc');
+            }
+
+            if ($input['sort_filter'] == 5) {
+                $query = $query->orderBy('product.price', 'desc');
+            }
+
+            if ($input['sort_filter'] == 6) {
+                $query = $query->orderBy('product.name', 'asc');
+            }
+
+            if ($input['sort_filter'] == 7) {
+                $query = $query->orderBy('product.name', 'desc');
+            }
+        } else {
+            $query = $query->orderBy('product.created_at', 'desc');
+        }
+
+        if ($count) {
+            $query = $query->countAllResults();
+        } else {
+            if (isset($input['paginate']) && $input['paginate'] != '') {
+                $query = $query->paginate($input['paginate']);
+            } else {
+                $query = $query->paginate(18);
+            }
+        }
+
+        return $query;
+    }
 }

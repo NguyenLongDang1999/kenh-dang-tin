@@ -1,4 +1,4 @@
-<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4">
+<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 <?= isset($category) && $category ? '' : 'row-cols-lg-4' ?>">
     <?php foreach ($getProduct as $item) : ?>
         <div class="col mb-3">
             <div class="card h-100">
@@ -38,6 +38,12 @@
                             <h5 class="item-price mb-0 ms-50 text-black-50 text-decoration-line-through">
                                 <?= $item->price !== 0 ? esc(number_to_amount($item->price, 2, 'vi_VN')) : 'Thương Lượng' ?>
                             </h5>
+                        </div>
+                    </div>
+                    <div class="item-wrapper mb-50">
+                        <div class="d-flex align-items-center">
+                            <i data-feather='layers'></i>
+                            <h6 class="item-price mb-0 ms-50 text-black-50 text-capitalize"><?= esc($item->catName) ?></h6>
                         </div>
                     </div>
                     <div class="item-wrapper mb-50">
