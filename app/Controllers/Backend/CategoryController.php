@@ -120,7 +120,7 @@ class CategoryController extends BaseController
                     'responsive_id'     => '',
                     'responsive_id'     => esc($row->id),
                     'image'             => img(showCategoryImage($row->image), false, ['alt' => esc($row->name), 'class' => 'round', 'width' => '120', 'height' => '120']),
-                    'name'              => '<a class="text-capitalize text-body" href="' . route_to('admin.category.subcategorites', $row->id) . '">' . character_limiter(esc($row->name), 15, '...') . '</a>',
+                    'name'              => '<a class="text-capitalize text-body" href="' . route_to('admin.category.edit', $row->id) . '">' . character_limiter(esc($row->name), 15, '...') . '</a>',
                     'parent_id'         => '<a class="text-capitalize text-body badge badge-pill badge-light-secondary" data-bs-toggle="tooltip" data-bs-placement="top" title="Danh mục con của ' . esc($row->name) . '" href="' . route_to('admin.category.subcategorites', $row->id) . '">' . $this->category->getCountSubcategorites($row->id) . ' Subcategorites</a>',
                     'status'            => esc($row->status),
                     'created_at'        => esc(getDateTime($row->created_at)),

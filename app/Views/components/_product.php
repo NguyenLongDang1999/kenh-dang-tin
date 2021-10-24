@@ -1,66 +1,67 @@
-<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 <?= isset($category) && $category ? '' : 'row-cols-lg-4' ?>">
+<section class="grid-view">
     <?php foreach ($getProduct as $item) : ?>
-        <div class="col mb-3">
-            <div class="card h-100">
-                <div class="text-center position-relative">
-                    <a href="<?= route_to('user.product.showDetail', esc($item->slug), esc($item->id)) ?>">
-                        <?= img(PATH_LAZY_LOADING, false, ['class' => 'card-img-top card-img lazy loading', 'alt' => esc($item->name), 'data-src' => showProductImage(esc($item->image))]) ?>
+        <div class="card ecommerce-card">
+            <div class="text-center position-relative">
+                <a href="<?= route_to('user.product.showDetail', esc($item->slug), esc($item->id)) ?>">
+                    <?= img(PATH_LAZY_LOADING, false, ['class' => 'card-img-top card-img lazy loading height-200', 'alt' => esc($item->name), 'data-src' => showProductImage(esc($item->image))]) ?>
+                </a>
 
-                        <?php if ($item->featured == FEATURED_ACTIVE) : ?>
-                            <div class="position-absolute top-0">
-                                <span class="badge bg-primary p-75">
-                                    <i data-feather="zap"></i>
-                                    HOT
-                                </span>
-                            </div>
-                        <?php endif; ?>
+                <?php if ($item->featured == FEATURED_ACTIVE) : ?>
+                    <div class="position-absolute top-0">
+                        <span class="badge bg-primary p-75">
+                            <i data-feather="zap"></i>
+                            HOT
+                        </span>
+                    </div>
+                <?php endif; ?>
 
-                        <?php if ($item->sale !== 0) : ?>
-                            <div class="position-absolute top-0 end-0">
-                                <span class="badge bg-danger p-75">
-                                    -<?= esc($item->sale) ?>%
-                                </span>
-                            </div>
-                        <?php endif; ?>
+                <?php if ($item->sale !== 0) : ?>
+                    <div class="position-absolute top-0 end-0">
+                        <span class="badge bg-danger p-75">
+                            -<?= esc($item->sale) ?>%
+                        </span>
+                    </div>
+                <?php endif; ?>
+            </div>
+            <div class="card-body">
+                <div class="item-wrapper">
+                    <div class="item-rating">
+                        <ul class="unstyled-list list-inline">
+                            <li class="ratings-list-item"><i data-feather="star" class="filled-star"></i></li>
+                            <li class="ratings-list-item"><i data-feather="star" class="filled-star"></i></li>
+                            <li class="ratings-list-item"><i data-feather="star" class="filled-star"></i></li>
+                            <li class="ratings-list-item"><i data-feather="star" class="filled-star"></i></li>
+                            <li class="ratings-list-item"><i data-feather="star" class="unfilled-star"></i></li>
+                        </ul>
+                    </div>
+                </div>
+                <h6 class="item-name" data-bs-toggle="tooltip" data-bs-placement="bottom" title="<?= esc($item->name) ?>">
+                    <a class="text-body" href="<?= route_to('user.product.showDetail', esc($item->slug), esc($item->id)) ?>">
+                        <?= esc($item->name) ?>
                     </a>
-                </div>
-                <div class="card-body">
-                    <h4 class="card-title" data-bs-toggle="tooltip" data-bs-placement="bottom" title="<?= esc($item->name) ?>">
-                        <a class="text-body" href="<?= route_to('user.product.showDetail', esc($item->slug), esc($item->id)) ?>"><?= esc($item->name) ?></a>
-                    </h4>
-                    <div class="item-wrapper mb-50">
-                        <div class="d-flex align-items-center flex-wrap">
-                            <i data-feather='dollar-sign'></i>
-                            <h2 class="item-price mb-0 ms-50 text-primary">
-                                <?= esc(number_to_amount($item->price - ($item->price * ($item->sale / 100)), 2, 'vi_VN')) ?>
-                            </h2>
-
-                            <h5 class="item-price mb-0 ms-50 text-black-50 text-decoration-line-through">
-                                <?= $item->price !== 0 ? esc(number_to_amount($item->price, 2, 'vi_VN')) : 'Thương Lượng' ?>
-                            </h5>
-                        </div>
-                    </div>
-                    <div class="item-wrapper mb-50">
-                        <div class="d-flex align-items-center">
-                            <i data-feather='layers'></i>
-                            <h6 class="item-price mb-0 ms-50 text-black-50 text-capitalize"><?= esc($item->catName) ?></h6>
-                        </div>
-                    </div>
-                    <div class="item-wrapper mb-50">
-                        <div class="d-flex align-items-center">
-                            <i data-feather='eye'></i>
-                            <h6 class="item-price mb-0 ms-50 text-black-50"><?= esc($item->view) ?></h6>
-                        </div>
-                    </div>
-                    <p class="card-text mt-2">
-                        This is a wider card with supporting text below as a natural lead-in to additional content. This content is
-                        a little bit longer.
-                    </p>
-                </div>
-                <div class="card-footer">
-                    <small class="text-muted"><?= getDateHumanize(esc($item->created_at)) ?></small>
-                </div>
+                    <span class="card-text item-company">By <a href="#" class="company-name">Apple</a></span>
+                </h6>
+                <p class="card-text text-description mt-50">
+                    <?= esc($item->small_description) ?>
+                </p>
+                <ul class="list-unstyled">
+                    <li><i data-feather="dollar-sign"></i> <?= esc(number_to_amount($item->price - ($item->price * ($item->sale / 100)), 2, 'vi_VN')) ?> (<span class="text-decoration-line-through text-muted"><?= $item->price !== 0 ? esc(number_to_amount($item->price, 2, 'vi_VN')) : 'Thương Lượng' ?></span>) </li>
+                    <li class="text-capitalize"><i data-feather="layers"></i> <?= esc($item->catName) ?></li>
+                    <li><i data-feather="code"></i> <?= esc($item->sku) ?></li>
+                    <li><i data-feather="eye"></i> <?= esc($item->view) ?></li>
+                    <li><i data-feather="clock"></i> <?= getDateHumanize(esc($item->created_at)) ?></li>
+                </ul>
+            </div>
+            <div class="item-options text-center">
+                <a href="#" class="btn btn-light btn-wishlist">
+                    <i data-feather="heart"></i>
+                    <span>Yêu Thích</span>
+                </a>
+                <a href="#" class="btn btn-primary btn-cart">
+                    <i data-feather="shopping-cart"></i>
+                    <span class="add-to-cart">Thêm Giỏ Hàng</span>
+                </a>
             </div>
         </div>
     <?php endforeach ?>
-</div>
+</section>

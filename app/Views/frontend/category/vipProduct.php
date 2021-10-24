@@ -15,6 +15,26 @@ Sản phẩm VIP tại <?= base_url() ?>
     -webkit-box-orient: vertical;
     overflow: hidden;
   }
+
+  .ecommerce-application .grid-view {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr !important;
+    -webkit-column-gap: 1rem !important;
+    -moz-column-gap: 1rem !important;
+    column-gap: 1rem !important;
+  }
+
+  @media (max-width: 991.98px) {
+    .ecommerce-application .grid-view {
+      grid-template-columns: 1fr 1fr 1fr !important;
+    }
+  }
+
+  @media (max-width: 767.98px) {
+    .ecommerce-application .grid-view {
+      grid-template-columns: 1fr 1fr !important;
+    }
+  }
 </style>
 <?= $this->endSection() ?>
 <!-- end pageCSS -->

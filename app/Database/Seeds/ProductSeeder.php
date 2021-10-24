@@ -17,9 +17,11 @@ class ProductSeeder extends Seeder
 				[
                     'name' 		       	=>    $faker->name(),
 					'slug'       		=>    $faker->slug(),
+                    'sku'               =>    'Fashion - ' . $i,
                     'image' 	    	=> 	  $faker->imageUrl(350, 250),
                     'image_list' 		=> 	  $faker->imageUrl(650, 450),
-                    'description'		=>	  $faker->text() . $faker->text() . $faker->text() . $faker->text() . $faker->text(),
+                    'small_description' =>    $faker->text(),
+                    'large_description'	=>	  $faker->text() . $faker->text() . $faker->text() . $faker->text() . $faker->text() . $faker->text() . $faker->text() . $faker->text() . $faker->text() . $faker->text() . $faker->text() . $faker->text() . $faker->text(),
                     'quantity'    		=>    rand(1, 200),
                     'cat_id'    		=>    rand(1, 120),
                     'brand_id'          =>    null,

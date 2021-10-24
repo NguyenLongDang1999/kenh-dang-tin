@@ -112,12 +112,13 @@ class ProductController extends BaseController
         $input = $this->request->getPost([
             'name',
             'cat_id',
+            'sku',
             'brand_id',
             'sale',
             'quantity',
             'image',
             'image_list',
-            'description',
+            'small_description',
             'meta_title',
             'status',
             'featured',
@@ -134,8 +135,8 @@ class ProductController extends BaseController
         $file = $this->request->getFile('image');
         if ($file) {
             $resize = [
-                'resizeX' => '120',
-                'resizeY' => '120',
+                'resizeX' => '350',
+                'resizeY' => '250',
             ];
             $input['image'] = uploadOneFile($file, PATH_PRODUCT_IMAGE, $resize);
         }
@@ -144,6 +145,7 @@ class ProductController extends BaseController
         $files = $this->request->getFiles();
         $input['image_list'] = $files ? uploadMultipleFiles($files['images'], PATH_PRODUCT_IMAGE) : null;
         $input['slug'] = $this->slug->str_slug($input['name']);
+        $input['large_description'] = $this->request->getPost('description');
         $this->product->insert($input);
         return redirect()->route('admin.product.index')->with('success', "Sản phẩm <strong class='text-capitalize'>" . esc($input['name']) . "</strong> đã được thêm.");
     }
@@ -165,11 +167,12 @@ class ProductController extends BaseController
         $input = $this->request->getPost([
             'name',
             'cat_id',
+            'sku',
             'brand_id',
             'sale',
             'quantity',
             'image_list',
-            'description',
+            'small_description',
             'meta_title',
             'status',
             'featured',
@@ -189,8 +192,8 @@ class ProductController extends BaseController
         $file = $this->request->getFile('image');
         if ($file) {
             $resize = [
-                'resizeX' => '120',
-                'resizeY' => '120',
+                'resizeX' => '350',
+                'resizeY' => '250',
             ];
             $image = uploadOneFile($file, PATH_PRODUCT_IMAGE, $resize, true, $input['checkImg']);
 
@@ -206,6 +209,7 @@ class ProductController extends BaseController
         $input['image_list'] = $image_list_gallery;
 
         $input['slug'] = $this->slug->str_slug($input['name']);
+        $input['large_description'] = $this->request->getPost('description');
         $this->product->update($id, $input);
         return redirect()->route('admin.product.index')->with('success', "Sản phẩm <strong class='text-capitalize'>" . esc($input['name']) . "</strong> đã được thêm.");
     }

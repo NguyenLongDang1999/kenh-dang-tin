@@ -13,9 +13,11 @@ class Product extends Model
     protected $allowedFields        = [
         'name',
         'slug',
+        'sku',
         'image',
         'image_list',
-        'description',
+        'small_description',
+        'large_description',
         'quantity',
         'cat_id',
         'brand_id',
@@ -129,7 +131,7 @@ class Product extends Model
     public function getDetailProduct($id, $recycle = false)
     {
         $model = $this->select('
-            id, name, cat_id, price, sale, brand_id, description, quantity, featured,
+            id, name, cat_id, price, sale, brand_id, small_description, large_description, sku, quantity, featured,
             meta_title, meta_keyword, meta_description, image, status, image_list
         ');
 
@@ -146,7 +148,7 @@ class Product extends Model
     {
         $model = $this->select('
             product.image, product.slug, product.name, product.price, product.featured, product.view, 
-            product.id, product.created_at, product.sale,
+            product.id, product.created_at, product.sale, product.small_description, product.sku,
             category.name as catName')
             ->join('category', 'category.id = product.cat_id')
             ->where('product.status', STATUS_ACTIVE)
@@ -159,14 +161,14 @@ class Product extends Model
             $model = $model->where('product.featured', FEATURED_INACTIVE);
         }
 
-        return $model->findAll(8);
+        return $model->findAll(10);
     }
 
     public function getProductCategory($input = array(), $count = false, $is_vip = false)
     {
         $query = $this->select('
             product.image, product.slug, product.name, product.price, product.featured, product.view, 
-            product.id, product.created_at, product.sale,
+            product.id, product.created_at, product.sale, product.small_description, product.sku,
             category.name as catName')
             ->join('category', 'category.id = product.cat_id')
             ->where('product.status', STATUS_ACTIVE)
@@ -254,7 +256,7 @@ class Product extends Model
         $str = rtrim($str, 'OR ');
         $query = $this->select('
             product.image, product.slug, product.name, product.price, product.featured, product.view, 
-            product.id, product.created_at, product.sale,
+            product.id, product.created_at, product.sale, product.small_description, product.sku,
             category.name as catName')
             ->join('category', 'category.id = product.cat_id')
             ->where('category.status', STATUS_ACTIVE)
@@ -336,7 +338,8 @@ class Product extends Model
     public function getProductDetail($productSlug, $id)
     {
         return $this->select('
-            product.name, product.id,
+            product.name, product.id, product.image_list, product.image, product.view, product.featured, product.price,
+            product.sale, product.small_description, product.large_description, product.sku,
             category.id as categoryID')
             ->join('category', 'category.id = product.cat_id')
             ->where('category.status', STATUS_ACTIVE)
@@ -345,5 +348,20 @@ class Product extends Model
             ->where('product.id', $id)
             ->orderBy('product.created_at', 'desc')
             ->first();
+    }
+
+    public function getProductRelated($cat_id, $id)
+    {
+        return $this->select('
+            product.image, product.slug, product.name, product.price, product.featured, product.view, 
+            product.id, product.created_at, product.sale, product.small_description, product.sku,
+            category.name as catName')
+            ->join('category', 'category.id = product.cat_id')
+            ->where('product.status', STATUS_ACTIVE)
+            ->where('category.status', STATUS_ACTIVE)
+            ->where('product.cat_id', $cat_id)
+            ->where('product.id !=', $id)
+            ->orderBy('product.created_at', 'desc')
+            ->findAll(5);
     }
 }

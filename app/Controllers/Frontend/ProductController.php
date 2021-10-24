@@ -20,7 +20,21 @@ class ProductController extends BaseController
     public function showDetail($productSlug, $id)
     {
         $row = $this->product->getProductDetail($productSlug, $id);
+
+        $sessionKey = 'getProductView' . $id;
+        $sessionView = session()->get($sessionKey);
+
+        if (!$sessionView) {
+            session()->set($sessionKey, 1);
+            $input = [
+                'view' => $row->view + 1
+            ];
+            $this->product->update($row->id, $input);
+        }
+
+        $data['gallery'] = explode(',', $row->image_list);
         $data['breadcrumbs'] = $this->category->show_breadcumb($row->categoryID, true);
+        $data['getProductRelated'] = $this->product->getProductRelated($row->categoryID, $id);
         $data['row'] = $row;
         $data['ecommerce'] = true;
         return view('frontend/product/threads', $data);

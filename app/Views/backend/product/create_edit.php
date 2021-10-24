@@ -55,6 +55,10 @@ Product <?= isset($row) ? 'Update' : 'Create' ?>
                             }
                         <?php endif ?>
                     },
+                    sku: {
+                        required: true,
+                        maxlength: 255,
+                    },
                     price: {
                         number: true,
                     },
@@ -87,6 +91,10 @@ Product <?= isset($row) ? 'Update' : 'Create' ?>
                             remote: "Tên sản phẩm này đã tồn tại. Vui lòng kiểm tra lại."
                         <?php endif ?>
 
+                    },
+                    sku: {
+                        required: "Mã sản phẩm không được bỏ trống.",
+                        maxlength: "Mã sản phẩm không được vượt quá 255 ký tự.",
                     },
                     price: {
                         number: "Giá cả phải là một số hợp lệ."
@@ -205,19 +213,19 @@ Product <?= isset($row) ? 'Update' : 'Create' ?>
                 </a>
             </div>
 
+            <?php if (isset($row)) : ?>
+                <?= form_open_multipart(route_to('admin.product.update', esc($row->id)), ['id' => 'product-form', 'class' => 'form-editor']) ?>
+            <?php else : ?>
+                <?= form_open_multipart(route_to('admin.product.store'), ['id' => 'product-form', 'class' => 'form-editor']) ?>
+            <?php endif; ?>
+
             <div class="card">
 
                 <div class="card-header border-bottom">
-                    <h4 class="card-title"><?= isset($row) ? 'Cập Nhật Sản Phẩm ' . esc($row->name) : 'Thêm Mới Sản Phẩm' ?></h4>
+                    <h4 class="card-title">Thông Tin Sản Phẩm</h4>
                 </div>
 
                 <div class="card-body mt-2">
-                    <?php if (isset($row)) : ?>
-                        <?= form_open_multipart(route_to('admin.product.update', esc($row->id)), ['id' => 'product-form', 'class' => 'form-editor']) ?>
-                    <?php else : ?>
-                        <?= form_open_multipart(route_to('admin.product.store'), ['id' => 'product-form', 'class' => 'form-editor']) ?>
-                    <?php endif; ?>
-
                     <?php if (isset($row)) : ?>
                         <?= form_hidden('checkImg', isset($row->image) ? $row->image : '') ?>
                     <?php endif ?>
@@ -236,6 +244,15 @@ Product <?= isset($row) ? 'Update' : 'Create' ?>
                             <div class="mb-1">
                                 <?= form_label('Danh Mục', 'cat_id', ['class' => 'form-label text-capitalize']) ?>
                                 <?= form_dropdown('cat_id', $option, isset($row->cat_id) ? $row->cat_id : '', ['class' => 'select2 form-control']) ?>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 col-12">
+                            <div class="mb-1">
+                                <?= form_label('Mã sản phẩm (SKU)', 'sku', ['class' => 'form-label text-capitalize']) ?>
+                                <?= form_input('sku', isset($row->sku) ? $row->sku : '', ['class' => 'form-control', 'id' => 'sku']) ?>
                             </div>
                         </div>
                     </div>
@@ -277,7 +294,50 @@ Product <?= isset($row) ? 'Update' : 'Create' ?>
                             </div>
                         </div>
                     </div>
+                </div>
+            </div>
 
+            <div class="card">
+
+                <div class="card-header border-bottom">
+                    <h4 class="card-title">Mô Tả Sản Phẩm</h4>
+                </div>
+
+                <div class="card-body mt-2">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="mb-1">
+                                <?= form_label('Mô tả ngắn sản phẩm', 'small_description', ['class' => 'form-label text-capitalize']) ?>
+                                <?= form_textarea('small_description', isset($row->small_description) ? $row->small_description : '', ['class' => 'form-control', 'id' => 'small_description', 'rows' => 3]) ?>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="mb-2">
+                                <?= form_label('Mô tả chi tiết sản phẩm', 'large_description', ['class' => 'form-label text-capitalize']) ?>
+                                <div id="full-wrapper">
+                                    <div id="full-container">
+                                        <div class="editor">
+                                            <?= isset($row->large_description) ? $row->large_description : '' ?>
+                                        </div>
+                                    </div>
+                                </div>
+                                <span id="description-error" class="error"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+
+                <div class="card-header border-bottom">
+                    <h4 class="card-title">Ảnh Sản Phẩm</h4>
+                </div>
+
+                <div class="card-body mt-2">
                     <div class="row">
                         <div class="col-12">
                             <div class="mb-1 validate-image">
@@ -309,22 +369,16 @@ Product <?= isset($row) ? 'Update' : 'Create' ?>
                         </div>
                     </div>
 
-                    <div class="row">
-                        <div class="col-12">
-                            <div class="mb-2">
-                                <?= form_label('Mô tả chi tiết sản phẩm', 'description', ['class' => 'form-label text-capitalize']) ?>
-                                <div id="full-wrapper">
-                                    <div id="full-container">
-                                        <div class="editor">
-                                            <?= isset($row->description) ? $row->description : '' ?>
-                                        </div>
-                                    </div>
-                                </div>
-                                <span id="description-error" class="error"></span>
-                            </div>
-                        </div>
-                    </div>
+                </div>
+            </div>
 
+            <div class="card">
+
+                <div class="card-header border-bottom">
+                    <h4 class="card-title">Meta SEO</h4>
+                </div>
+
+                <div class="card-body mt-2">
                     <div class="row">
                         <div class="col-12">
                             <div class="mb-1">
@@ -351,7 +405,16 @@ Product <?= isset($row) ? 'Update' : 'Create' ?>
                             </div>
                         </div>
                     </div>
+                </div>
+            </div>
 
+            <div class="card">
+
+                <div class="card-header border-bottom">
+                    <h4 class="card-title">Trạng Thái Sản Phẩm</h4>
+                </div>
+
+                <div class="card-body mt-2">
                     <div class="row">
                         <div class="col-12">
                             <div class="mb-1">
@@ -371,15 +434,15 @@ Product <?= isset($row) ? 'Update' : 'Create' ?>
                             </div>
                         </div>
                     </div>
-
-                    <div class="row">
-                        <div class="col-12">
-                            <?= form_button(['class' => 'btn btn-primary btn-disabled-image', 'type' => 'submit', 'content' => !isset($row) ? "Thêm Mới" : "Cập Nhật"]) ?>
-                        </div>
-                    </div>
-                    <?= form_close() ?>
                 </div>
             </div>
+
+            <div class="row">
+                <div class="col-12">
+                    <?= form_button(['class' => 'btn btn-primary btn-disabled-image', 'type' => 'submit', 'content' => !isset($row) ? "Thêm Mới" : "Cập Nhật"]) ?>
+                </div>
+            </div>
+            <?= form_close() ?>
         </div>
     </div>
 </section>

@@ -15,6 +15,26 @@ Home Page
         -webkit-box-orient: vertical;
         overflow: hidden;
     }
+
+    .ecommerce-application .grid-view {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr 1fr 1fr !important;
+        -webkit-column-gap: 1rem !important;
+        -moz-column-gap: 1rem !important;
+        column-gap: 1rem !important;
+    }
+
+    @media (max-width: 991.98px) {
+        .ecommerce-application .grid-view {
+            grid-template-columns: 1fr 1fr 1fr !important;
+        }
+    }
+
+    @media (max-width: 575.98px) {
+        .ecommerce-application .grid-view {
+            grid-template-columns: 1fr 1fr !important;
+        }
+    }
 </style>
 <?= $this->endSection() ?>
 <!-- end vendorCSS -->
@@ -22,6 +42,7 @@ Home Page
 <!-- pageCSS -->
 <?= $this->section('pageCSS') ?>
 <?= link_tag('app-assets/vendors/css/extensions/sweetalert2.min.css') ?>
+<?= link_tag('app-assets/css/pages/app-ecommerce.min.css') ?>
 <?= $this->endSection() ?>
 <!-- end pageCSS -->
 
@@ -42,11 +63,6 @@ Home Page
 </script>
 <?= $this->endSection() ?>
 <!-- end pageJS -->
-
-<!-- Content-header -->
-<?= $this->section('content-header'); ?>
-<?= $this->endSection(); ?>
-<!-- end Content-header -->
 
 <!-- Content-body -->
 <?= $this->section('content-body'); ?>

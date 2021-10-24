@@ -23,6 +23,10 @@ class CreateProductTable extends Migration
                 'type'       => 'VARCHAR',
                 'constraint' => '255',
             ],
+            'sku'       => [
+                'type'       => 'VARCHAR',
+                'constraint' => '255',
+            ],
             'image'       => [
                 'type'       => 'VARCHAR',
                 'constraint' => '255',
@@ -32,9 +36,14 @@ class CreateProductTable extends Migration
                 'type'       => 'TEXT',
                 'null'          => true,
             ],
-            'description'       => [
-				'type'       => 'LONGTEXT',
-			],
+            'small_description'       => [
+                'type'       => 'VARCHAR',
+                'constraint' => '255',
+                'null'          => true,
+            ],
+            'large_description'       => [
+                'type'       => 'LONGTEXT',
+            ],
             'quantity'          => [
                 'type'           => 'INT',
                 'constraint'     => 11,
