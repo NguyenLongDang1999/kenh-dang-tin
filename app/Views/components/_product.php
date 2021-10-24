@@ -37,7 +37,7 @@
                 </div>
                 <h6 class="item-name" data-bs-toggle="tooltip" data-bs-placement="bottom" title="<?= esc($item->name) ?>">
                     <a class="text-body" href="<?= route_to('user.product.showDetail', esc($item->slug), esc($item->id)) ?>">
-                        <?= isset($search) && $search && !empty($input['s']) ? highlightWords(esc($item->name), $input['s']) : esc($item->name) ?>
+                        <?= esc($item->name) ?>
                     </a>
                     <span class="card-text item-company">By <a href="#" class="company-name">Apple</a></span>
                 </h6>

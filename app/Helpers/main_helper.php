@@ -246,9 +246,3 @@ function showGender($gender)
 
     return $html;
 }
-
-function highlightWords($text, $keyword)
-{
-    $text = preg_replace('#' . preg_quote($keyword) . '#i', '<span style="background-color: #F9F902;">\\0</span>', $text);
-    return $text;
-}

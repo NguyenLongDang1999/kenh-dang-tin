@@ -113,7 +113,7 @@ Kết quả tìm kiếm từ khóa <?= esc($input['s']) ?> tại <?= base_url() 
 <div class="body-content-overlay"></div>
 
 <?php if (count($getSearchProduct)) : ?>
-  <?= view('components/_product', ['getProduct' => $getSearchProduct, 'search' => true]) ?>
+  <?= view('components/_product', ['getProduct' => $getSearchProduct]) ?>
 
   <section id="ecommerce-pagination">
     <div class="row">

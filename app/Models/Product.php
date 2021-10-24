@@ -256,7 +256,8 @@ class Product extends Model
             ->join('category', 'category.id = product.cat_id')
             ->where('product.status', STATUS_ACTIVE)
             ->where('category.status', STATUS_ACTIVE)
-            ->like('product.name', trim($input['s']));
+            ->like('product.name', trim($input['s']))
+            ->orLike('product.sku', trim($input['s']));
 
         if (isset($input['price_range']) && $input['price_range'] != '') {
             if ($input['price_range'] == 1) {

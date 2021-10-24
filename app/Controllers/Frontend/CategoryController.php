@@ -30,7 +30,6 @@ class CategoryController extends BaseController
 		$data['countProduct'] = $this->product->getProductCategory($input, true);
 		$data['pager'] = $this->product->pager;
 		$data['input'] = $input;
-		$data['ecommerce'] = true;
 		$data['is_ecommerce_page'] = true;
 		return view('frontend/category/newProduct', $data);
 	}
@@ -42,7 +41,6 @@ class CategoryController extends BaseController
 		$data['countProduct'] = $this->product->getProductCategory($input, true, true);
 		$data['pager'] = $this->product->pager;
 		$data['input'] = $input;
-		$data['ecommerce'] = true;
 		$data['is_ecommerce_page'] = true;
 		return view('frontend/category/vipProduct', $data);
 	}
@@ -63,7 +61,6 @@ class CategoryController extends BaseController
 		$data['pager'] = $this->product->pager;
 		$data['row'] = $row;
 		$data['breadcrumbs'] = $this->category->show_breadcumb($row->id);
-		$data['ecommerce'] = true;
 		$data['is_ecommerce_page'] = true;
 		return view('frontend/category/category', $data);
 	}

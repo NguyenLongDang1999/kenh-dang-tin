@@ -48,7 +48,6 @@ class ProductController extends BaseController
             $data['countProduct'] = $this->product->getSearchProduct($input, true);
             $data['pager'] = $this->product->pager;
             $data['input'] = $input;
-            $data['ecommerce'] = true;
             $data['is_ecommerce_page'] = true;
 
             return view('frontend/product/search', $data);
