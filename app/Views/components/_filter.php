@@ -8,6 +8,9 @@
       </div>
       <div class="card">
         <?= form_open('', ['method' => 'GET', 'id' => 'filter-category']) ?>
+        <?php if (isset($search)) : ?>
+          <?= form_hidden('s', $search) ?>
+        <?php endif; ?>
         <div class="card-body">
           <div class="multi-range-price">
             <h6 class="filter-title mt-0">Giá Cả</h6>

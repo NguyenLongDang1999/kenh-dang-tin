@@ -125,6 +125,6 @@ Kết quả tìm kiếm từ khóa <?= esc($input['s']) ?> tại <?= base_url() 
 <?php endif; ?>
 </div>
 </div>
-<?= view('components/_filter') ?>
+<?= view('components/_filter', ['search' => $input['s']]) ?>
 <?= $this->endSection(); ?>
 <!-- end Content-body -->
