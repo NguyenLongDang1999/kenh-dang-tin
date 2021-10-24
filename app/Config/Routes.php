@@ -42,6 +42,7 @@ $routes->group('', ['namespace' => 'App\Controllers\Frontend'], function ($route
 
     // Product
     $routes->get('threads/(:any)/s(:num)', 'ProductController::showDetail/$1/$2', ['as' => 'user.product.showDetail']);
+    $routes->get('search', 'ProductController::searchProduct', ['as' => 'user.product.searchProduct']);
 });
 
 // Backend

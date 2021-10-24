@@ -50,7 +50,7 @@ function showProductImage($image)
         if (strpos($image, 'https') !== false) {
             $path = $image;
         } else {
-            $path = PATH_PRODUCT_IMAGE . $image;
+            $path = base_url(PATH_PRODUCT_IMAGE . $image);
         }
     }
 
@@ -245,4 +245,10 @@ function showGender($gender)
     }
 
     return $html;
+}
+
+function highlightWords($text, $keyword)
+{
+    $text = preg_replace('#' . preg_quote($keyword) . '#i', '<span style="background-color: #F9F902;">\\0</span>', $text);
+    return $text;
 }

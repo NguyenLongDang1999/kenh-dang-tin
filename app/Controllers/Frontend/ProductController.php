@@ -39,4 +39,21 @@ class ProductController extends BaseController
         $data['ecommerce'] = true;
         return view('frontend/product/threads', $data);
     }
+
+    public function searchProduct()
+    {
+        $input = $this->request->getGet();
+        if (isset($input['s']) && $input['s'] != "") {
+            $data['getSearchProduct'] = $this->product->getSearchProduct($input, false);
+            $data['countProduct'] = $this->product->getSearchProduct($input, true);
+            $data['pager'] = $this->product->pager;
+            $data['input'] = $input;
+            $data['ecommerce'] = true;
+            $data['is_ecommerce_page'] = true;
+
+            return view('frontend/product/search', $data);
+        } else {
+            return redirect()->route('user.category.newProduct');
+        }
+    }
 }

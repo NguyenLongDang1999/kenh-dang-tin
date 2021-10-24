@@ -117,18 +117,8 @@ Sản phẩm mới nhất tại <?= base_url() ?>
 
 <div class="body-content-overlay"></div>
 
-<section id="ecommerce-searchbar" class="ecommerce-searchbar mb-3">
-    <div class="row mt-1">
-        <div class="col-sm-12">
-            <div class="input-group input-group-merge">
-                <input type="text" class="form-control search-product" id="shop-search" placeholder="Search Product" aria-label="Search..." aria-describedby="shop-search" />
-                <span class="input-group-text"><i data-feather="search" class="text-muted"></i></span>
-            </div>
-        </div>
-    </div>
-</section>
 <?php if (count($getProductNews)) : ?>
-    <?= view('components/_product', ['getProduct' => $getProductNews, 'category' => $is_ecommerce_page]) ?>
+    <?= view('components/_product', ['getProduct' => $getProductNews]) ?>
 
     <section id="ecommerce-pagination">
         <div class="row">

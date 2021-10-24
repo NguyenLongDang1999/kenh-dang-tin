@@ -1,7 +1,7 @@
 <?= $this->extend('layouts/frontend/index') ?>
 
 <?= $this->section('title'); ?>
-<?= esc($row->name) ?> tại <?= base_url() ?>
+Kết quả tìm kiếm từ khóa <?= esc($input['s']) ?> tại <?= base_url() ?>
 <?= $this->endSection(); ?>
 
 <!-- pageCSS -->
@@ -72,7 +72,9 @@
                   Trang chủ
                 </a>
               </li>
-              <?= $breadcrumbs ?>
+              <li class="breadcrumb-item text-capitalize active" aria-current="page">
+                Kết quả tìm kiếm
+              </li>
             </ol>
           </nav>
         </div>
@@ -85,18 +87,13 @@
 
 <!-- Content-body -->
 <?= $this->section('content-body'); ?>
-<div class="text-center my-3">
-  <div class="divider">
+<div class="text-center">
+  <div class="divider my-3">
     <div class="divider-text">
-      <h1 class="text-uppercase font-medium-5"><?= esc($row->name) ?></h1>
+      <h1 class="text-uppercase font-medium-5">Từ khóa: <?= esc($input['s']) ?></h1>
     </div>
   </div>
-  <p class="font-medium-1"><?= esc($row->description) ?></p>
 </div>
-
-<section id="ecommerce-category">
-  <?= view('components/_category', ['getCategory' => $getCategoryList, 'category' => $is_ecommerce_page]) ?>
-</section>
 
 <section id="ecommerce-header">
   <div class="row">
@@ -115,8 +112,8 @@
 
 <div class="body-content-overlay"></div>
 
-<?php if (count($getProductShowByCat)) : ?>
-  <?= view('components/_product', ['getProduct' => $getProductShowByCat]) ?>
+<?php if (count($getSearchProduct)) : ?>
+  <?= view('components/_product', ['getProduct' => $getSearchProduct, 'search' => true]) ?>
 
   <section id="ecommerce-pagination">
     <div class="row">
