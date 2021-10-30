@@ -40,7 +40,7 @@
                 <div class="search-input">
                     <div class="search-input-icon"><i data-feather="search"></i></div>
                     <?= form_open(route_to('user.product.searchProduct'), ['method' => 'GET']) ?>
-                    <?= form_input('s', (isset($input['s']) && $input['s'] != '') ? $input['s'] : '', ['class' => 'form-control input', 'placeholder' => 'Nhập từ khóa tìm kiếm vào đây...']) ?>
+                    <?= form_input('s', (isset($input['s']) && $input['s'] != '') ? $input['s'] : '', ['class' => 'form-control input', 'placeholder' => 'Nhập từ khóa tìm kiếm (Tên sản phẩm, Mã sản phẩm, Tên danh mục)']) ?>
                     <?= form_close() ?>
                     <div class="search-input-close"><i data-feather="x"></i></div>
                     <ul class="search-list search-list-main"></ul>

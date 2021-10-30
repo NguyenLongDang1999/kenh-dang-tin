@@ -259,6 +259,7 @@ class Product extends Model
             ->groupStart()
             ->like('product.name', trim($input['s']))
             ->orLike('product.sku', trim($input['s']))
+            ->orLike('category.name', trim($input['s']))
             ->groupEnd();
 
         if (isset($input['price_range']) && $input['price_range'] != '') {
