@@ -411,4 +411,59 @@ class AuthController extends Controller
 		$users->save($input);
 		return redirect()->route('user.auth.userProfile')->with("message", 'Cập nhật thông tin thành công!');
 	}
+
+	public function updatePassword()
+	{
+		$config = config('Auth');
+		$users = model(UserModel::class);
+
+		$hashOptions = [
+			'cost' => $config->hashCost
+		];
+
+		if (!password_verify(base64_encode(hash('sha384', $this->request->getPost('password'), true)), user()->password_hash)) {
+			return redirect()->route('user.auth.userProfile')->with('error', "Mật khẩu cũ nhập không chính xác. Vui lòng thử lại!");
+		}
+
+		$new_password = password_hash(
+			base64_encode(
+				hash('sha384', $this->request->getPost('new_password'), true)
+			),
+			$config->hashAlgorithm,
+			$hashOptions
+		);
+		$user['id'] = user_id();
+		$user['password_hash'] = $new_password;
+		$users->save($user);
+		return redirect()->route('user.auth.userProfile')->with("message", 'Mật khẩu đã được cập nhật thành công!');
+	}
+
+	public function deleteImageUser()
+	{
+		if ($this->request->isAJAX()) {
+			$users = model(UserModel::class);
+
+			$image = $this->request->getPost('url_img');
+			$result['avatar'] = NULL;
+
+			if (strpos($image, 'https') === false) {
+				$convert = explode('/', $image);
+				$getEndConvert = end($convert);
+			}
+
+			if ($users->update(user_id(), $result)) {
+				$data['result'] = true;
+
+				if (strpos($image, 'https') === false) {
+					deleteImage(PATH_USER_IMAGE, $getEndConvert);
+				}
+
+				return json_encode($data);
+			}
+
+			$data['result'] = false;
+			$data['message'] = '<span class="text-capitalize">Có lỗi xảy ra trong quá trình xóa hình ảnh.</span>';
+			return json_encode($data);
+		}
+	}
 }

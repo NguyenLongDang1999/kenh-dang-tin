@@ -9,6 +9,8 @@ $routes->group('', ['namespace' => 'Myth\Auth\Controllers'], function ($routes) 
 
     // Update Infomation
     $routes->post('update-profile', 'AuthController::updateProfile', ['as' => 'user.auth.updateProfile']);
+    $routes->post('update-password', 'AuthController::updatePassword', ['as' => 'user.auth.updatePassword']);
+    $routes->post('delete-image-user', 'AuthController::deleteImageUser', ['as' => 'user.auth.deleteImageUser']);
 
     // Login/out
     $routes->get('dang-nhap', 'AuthController::login', ['as' => 'login']);

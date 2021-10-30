@@ -21,13 +21,14 @@ Trang chủ
 
 <!-- vendorJS -->
 <?= $this->section('vendorJS') ?>
-<?= script_tag('app-assets/vendors/js/forms/validation/jquery.validate.min.js') ?>  
+<?= script_tag('app-assets/vendors/js/forms/validation/jquery.validate.min.js') ?>
 <?= script_tag('app-assets/vendors/js/pickers/flatpickr/flatpickr.min.js') ?>
 <?= $this->endSection() ?>
 <!-- end vendorJS -->
 
 <!-- pageJS -->
 <?= $this->section('pageJS') ?>
+<?= $this->include('frontend/user/components/scripts') ?>
 <?= $this->endSection() ?>
 <!-- end pageJS -->
 
@@ -67,7 +68,7 @@ Trang chủ
                 <div class="card-body">
                     <div class="user-avatar-section">
                         <div class="d-flex align-items-center flex-column">
-                            <?= img(showUserImage(user()->avatar), false, ['class' => 'img-fluid rounded mt-3 mb-2', 'width' => 110, 'height' => 110, 'alt' => esc(user()->fullname)]) ?>
+                            <?= img(showUserImage(user()->avatar), false, ['class' => 'img-fluid rounded mt-3 mb-2', 'id' => 'user-image-profile', 'width' => 110, 'height' => 110, 'alt' => esc(user()->fullname)]) ?>
                             <div class="user-info text-center">
                                 <h4><?= user()->fullname ?></h4>
                                 <span class="badge bg-light-secondary"><?= showGender(user()->gender) ?></span>
@@ -113,7 +114,7 @@ Trang chủ
         </div>
 
         <div class="col-xl-8 col-lg-7 col-md-7 order-0 order-md-1">
-            <ul class="nav nav-pills mb-2">
+            <ul class="nav nav-pills mb-2" id="tabMenu">
                 <li class="nav-item">
                     <a class="nav-link active" id="pill-user-profile" data-bs-toggle="pill" href="#user-profile" aria-expanded="true">
                         <i data-feather="user" class="font-medium-3 m-0 me-md-50"></i>
@@ -141,7 +142,7 @@ Trang chủ
                 <div role="tabpanel" class="tab-pane" id="change-password" aria-labelledby="pill-change-password" aria-expanded="true">
                     <div class="card">
                         <div class="card-body">
-                            Chao ban 1
+                            <?= $this->include('frontend/user/components/updatePassword') ?>
                         </div>
                     </div>
                 </div>
