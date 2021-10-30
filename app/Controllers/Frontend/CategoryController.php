@@ -61,6 +61,7 @@ class CategoryController extends BaseController
 		$data['pager'] = $this->product->pager;
 		$data['row'] = $row;
 		$data['breadcrumbs'] = $this->category->show_breadcumb($row->id);
+		$data['input'] = $input;
 		$data['is_ecommerce_page'] = true;
 		return view('frontend/category/category', $data);
 	}
