@@ -17,7 +17,8 @@
         blogImageInput = $("#blogCustomFile"),
         quillEditor = $("#full-container .editor"),
         numeralMask = $(".numeral-mask"),
-        inputImagesStore = $(".input-images-1");
+        inputImagesStore = $(".input-images-1"),
+        rating = $(".rating");
 
     // Methods
     if (blogImageInput.length) {
@@ -338,5 +339,20 @@
             extensions: [".jpg", ".jpeg", ".png", ".gif"],
             label: "Kéo thả hoặc chọn hình vào đây",
         });
+    }
+
+    if (rating.length) {
+      $(".rating").starRating({
+        starSize: 25,
+        disableAfterRate: false,
+        onHover: function (currentIndex, currentRating, $el) {
+          $(".live-rating").text(currentIndex);
+          $("#rating").val(currentRating);
+        },
+        onLeave: function (currentIndex, currentRating, $el) {
+          $(".live-rating").text(currentRating);
+          $("#rating").val(currentRating);
+        },
+      });
     }
 })(window);

@@ -246,3 +246,20 @@ function showGender($gender)
 
     return $html;
 }
+
+function starRating($review_rate)
+{
+    $html = '';
+
+    for ($i = 0; $i < 5; $i++) {
+        if (floor($review_rate) - $i >= 1) {
+            $html .= '<li class="ratings-list-item"><i data-feather="star" class="filled-star"></i></li>';
+        } else if ($review_rate - $i > 0) {
+            $html .= '<li class="ratings-list-item"><i data-feather="star" class="unfilled-star"></i></li>';
+        } else {
+            $html .= '<li class="ratings-list-item"><i data-feather="star" class="unfilled-star"></i></li>';
+        }
+    }
+
+    return $html;
+}

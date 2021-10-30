@@ -1,5 +1,12 @@
+<?php $comment = model('Comment') ?>
+<?php $sum = 0 ?>
 <section class="grid-view">
     <?php foreach ($getProduct as $item) : ?>
+        <?php $commentRating = $comment->getSumRatingComment($item->id) ?>
+
+        <?php foreach ($commentRating as $row) : ?>
+            <?php $sum += $row->rating ?>
+        <?php endforeach; ?>
         <div class="card ecommerce-card">
             <div class="text-center position-relative">
                 <a href="<?= route_to('user.product.showDetail', esc($item->slug), esc($item->id)) ?>">
@@ -27,11 +34,11 @@
                 <div class="item-wrapper">
                     <div class="item-rating">
                         <ul class="unstyled-list list-inline">
-                            <li class="ratings-list-item"><i data-feather="star" class="filled-star"></i></li>
-                            <li class="ratings-list-item"><i data-feather="star" class="filled-star"></i></li>
-                            <li class="ratings-list-item"><i data-feather="star" class="filled-star"></i></li>
-                            <li class="ratings-list-item"><i data-feather="star" class="filled-star"></i></li>
-                            <li class="ratings-list-item"><i data-feather="star" class="unfilled-star"></i></li>
+                            <?php if (count($commentRating) !== 0) : ?>
+                                <?= starRating($sum / count($commentRating)) ?>
+                            <?php else : ?>
+                                <?= starRating(0) ?>
+                            <?php endif; ?>
                         </ul>
                     </div>
                 </div>
