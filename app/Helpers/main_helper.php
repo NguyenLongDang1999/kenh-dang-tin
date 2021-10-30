@@ -235,7 +235,7 @@ function showGender($gender)
     $html = '';
 
     if (!is_null($gender)) {
-        if ($gender === GENDER_MALE) {
+        if ($gender == GENDER_MALE) {
             $html .= 'Nam';
         } else {
             $html .= 'Nữ';
@@ -262,4 +262,14 @@ function starRating($review_rate)
     }
 
     return $html;
+}
+
+function getAgeUser($birthdate)
+{
+
+    $d1 = Time::parse($birthdate);
+    $d2 = Time::parse(date("Y-m-d H:i:s"));
+    $diff = $d1->difference($d2);
+    $age = $diff->getYears();
+    return $age;
 }

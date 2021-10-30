@@ -377,4 +377,38 @@ class AuthController extends Controller
 			'valid' => $valid,
 		]);
 	}
+
+	public function userProfile()
+	{
+		return view('frontend/user/userProfile');
+	}
+
+	public function updateProfile()
+	{
+		$users = model(UserModel::class);
+
+		$input = $this->request->getPost([
+			'fullname',
+			'job',
+			'phone',
+			'address',
+			'birthdate',
+			'gender',
+			'checkImg'
+		]);
+
+		$file = $this->request->getFile('avatar');
+		if ($file) {
+			$resize = [
+				'resizeX' => '120',
+				'resizeY' => '120',
+			];
+			$image = uploadOneFile($file, PATH_USER_IMAGE, $resize, true, $input['checkImg']);
+
+			$input['avatar'] = !is_null($image) ? $image : $input['checkImg'];
+		}
+		$input['id'] = user_id();
+		$users->save($input);
+		return redirect()->route('user.auth.userProfile')->with("message", 'Cập nhật thông tin thành công!');
+	}
 }

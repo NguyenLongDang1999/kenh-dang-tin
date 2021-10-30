@@ -11,6 +11,7 @@
     });
 
     // Data
+    const altFormat = "d-m-Y";
     var select2_custom = $(".select2-custom"),
         select = $(".select2"),
         blogFeatureImage = $("#blog-feature-image"),
@@ -18,6 +19,7 @@
         quillEditor = $("#full-container .editor"),
         numeralMask = $(".numeral-mask"),
         inputImagesStore = $(".input-images-1"),
+        flatPicker = $(".flatpickr"),
         rating = $(".rating");
 
     // Methods
@@ -40,6 +42,38 @@
                 );
                 $(".btn-disabled-image").prop("disabled", true);
             }
+        });
+    }
+
+    if (flatPicker.length) {
+        flatPicker.flatpickr({
+            dateFormat: "Y-m-d",
+            altInput: true,
+            altFormat,
+            allowInput: true,
+            locale: {
+                months: {
+                    longhand: [
+                        "Tháng 1",
+                        "Tháng 2",
+                        "Tháng 3",
+                        "Tháng 4",
+                        "Tháng 5",
+                        "Tháng 6",
+                        "Tháng 7",
+                        "Tháng 8",
+                        "Tháng 9",
+                        "Tháng 10",
+                        "Tháng 11",
+                        "Tháng 12",
+                    ],
+                },
+            },
+            onReady: function (selectedDates, dateStr, instance) {
+                if (instance.isMobile) {
+                    $(instance.mobileInput).attr("step", null);
+                }
+            },
         });
     }
 

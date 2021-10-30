@@ -139,40 +139,21 @@
                             <?= img(showUserImage(user()->avatar), false, ['class' => 'round', 'alt' => esc(user()->fullname), 'height' => '40', 'width' => '40', 'id' => 'avatar-users']) ?>
                         </span>
                     </a>
-                    <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdown-user">
-                        <a class="dropdown-item" href="page-profile.html">
+                    <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdown-user" style="width: 15rem">
+                        <a class="dropdown-item <?= getMenuUserActive(route_to('user.auth.userProfile')) ?>" href="<?= route_to('user.auth.userProfile') ?>">
                             <i class="me-50" data-feather="user"></i>
-                            Profile
-                        </a>
-                        <a class="dropdown-item" href="app-email.html">
-                            <i class="me-50" data-feather="mail"></i>
-                            Inbox
-                        </a>
-                        <a class="dropdown-item" href="app-todo.html">
-                            <i class="me-50" data-feather="check-square"></i>
-                            Task
-                        </a>
-                        <a class="dropdown-item" href="app-chat.html">
-                            <i class="me-50" data-feather="message-square"></i>
-                            Chats
+                            Thông Tin Cá Nhân
                         </a>
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="page-account-settings-account.html">
-                            <i class="me-50" data-feather="settings"></i>
-                            Settings
-                        </a>
-                        <a class="dropdown-item" href="page-pricing.html">
-                            <i class="me-50" data-feather="credit-card"></i>
-                            Pricing
-                        </a>
-                        <a class="dropdown-item" href="page-faq.html">
-                            <i class="me-50" data-feather="help-circle"></i>
-                            FAQ
-                        </a>
-                        <a class="dropdown-item" href="auth-login-cover.html">
-                            <i class="me-50" data-feather="power"></i>
-                            Logout
-                        </a>
+                        <?php if (session()->has('social_logged_in')) : ?>
+                            <a class="dropdown-item" href="<?= route_to('user.auth.socialLogin') ?>?logout=<?= session()->get('social_logged_in') ?>">
+                                <i class="me-50" data-feather="power"></i> Đăng Xuất
+                            </a>
+                        <?php else : ?>
+                            <a class="dropdown-item" href="<?= route_to('logout') ?>">
+                                <i class="me-50" data-feather="power"></i> Đăng Xuất
+                            </a>
+                        <?php endif; ?>
                     </div>
                 </li>
             <?php else : ?>
