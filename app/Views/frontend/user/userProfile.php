@@ -117,14 +117,14 @@ Trang chủ
             <ul class="nav nav-pills mb-2" id="tabMenu">
                 <li class="nav-item">
                     <a class="nav-link active" id="pill-user-profile" data-bs-toggle="pill" href="#user-profile" aria-expanded="true">
-                        <i data-feather="user" class="font-medium-3 m-0 me-md-50"></i>
+                        <i data-feather="user" class="font-medium-3 m-0 me-md-50" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Thông tin cá nhân"></i>
                         <span class="fw-bold text-capitalize d-none d-md-block">Thông tin cá nhân</span>
                     </a>
                 </li>
 
                 <li class="nav-item">
                     <a class="nav-link" id="pill-change-password" data-bs-toggle="pill" href="#change-password" aria-expanded="true">
-                        <i data-feather="lock" class="font-medium-3 m-0 me-md-50"></i>
+                        <i data-feather="lock" class="font-medium-3 m-0 me-md-50" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Đổi mật khẩu"></i>
                         <span class="fw-bold text-capitalize d-none d-md-block">Đổi mật khẩu</span>
                     </a>
                 </li>
