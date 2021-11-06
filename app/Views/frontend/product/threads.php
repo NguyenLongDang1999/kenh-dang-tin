@@ -309,13 +309,9 @@
           </p>
           <hr />
           <div class="d-flex flex-column flex-sm-row pt-1">
-            <a href="#" class="btn btn-primary btn-cart me-0 me-sm-1 mb-1 mb-sm-0">
+            <a href="#" class="btn btn-primary btn-cart me-0 me-sm-1 mb-1 mb-sm-0" data-id="<?= esc($row->id) ?>">
               <i data-feather="shopping-cart" class="me-50"></i>
               <span class="add-to-cart">Thêm Vào Giỏ Hàng</span>
-            </a>
-            <a href="#" class="btn btn-outline-secondary btn-wishlist me-0 me-sm-1 mb-1 mb-sm-0">
-              <i data-feather="heart" class="me-50"></i>
-              <span>Yêu Thích</span>
             </a>
             <div class="btn-group dropdown-icon-wrapper btn-share">
               <button type="button" class="btn btn-icon hide-arrow btn-outline-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

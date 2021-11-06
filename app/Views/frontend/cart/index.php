@@ -22,13 +22,6 @@ Giỏ hàng
 <!-- pageJS -->
 <?= $this->section('pageJS') ?>
 <?= script_tag('app-assets/js/scripts/pages/app-ecommerce.min.js') ?>
-<script>
-    var url_delete_cart_item = "<?= route_to('user.cart.deleteCart') ?>";
-
-    $(function() {
-        'use strict';
-    });
-</script>
 <?= $this->endSection() ?>
 <!-- end pageJS -->
 

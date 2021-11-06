@@ -10,6 +10,10 @@
 <!-- END: Theme JS-->
 
 <!-- BEGIN: Page JS-->
+<script>
+    var url_delete_cart_item = "<?= route_to('user.cart.deleteCart') ?>";
+    var url_cart_item = "<?= route_to('user.cart.addToCart') ?>"
+</script>
 <?= script_tag('assets/js/scripts.js') ?>
 <?= $this->renderSection('pageJS') ?>
 <!-- END: Page JS-->
