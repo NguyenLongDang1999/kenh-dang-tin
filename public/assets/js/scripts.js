@@ -18,6 +18,7 @@
         blogImageInput = $("#blogCustomFile"),
         quillEditor = $("#full-container .editor"),
         numeralMask = $(".numeral-mask"),
+        numeralMask_1 = $(".numeral-mask-1"),
         inputImagesStore = $(".input-images-1"),
         flatPicker = $(".flatpickr"),
         rating = $(".rating");
@@ -504,6 +505,13 @@
 
     if (numeralMask.length) {
         new Cleave(numeralMask, {
+            numeral: true,
+            numeralThousandsGroupStyle: "thousand",
+        });
+    }
+
+    if (numeralMask_1.length) {
+        new Cleave(numeralMask_1, {
             numeral: true,
             numeralThousandsGroupStyle: "thousand",
         });

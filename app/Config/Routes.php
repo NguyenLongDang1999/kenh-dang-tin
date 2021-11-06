@@ -158,6 +158,29 @@ $routes->group('administrator', ['namespace' => 'App\Controllers\Backend'], func
         // Check Exists
         $routes->post('checkExists', 'PagesController::checkExists', ['as' => 'admin.pages.checkExists']);
     });
+
+    // Coupon
+    
+    $routes->group('coupon', ['namespace' => 'App\Controllers\Backend'], function ($routes) {
+        // Index
+        $routes->get('/', 'CouponController::index', ['as' => 'admin.coupon.index']);
+        $routes->get('getList', 'CouponController::getList', ['as' => 'admin.coupon.getList']);
+
+        // Create
+        $routes->get('create', 'CouponController::create', ['as' => 'admin.coupon.create']);
+        $routes->post('store', 'CouponController::store', ['as' => 'admin.coupon.store']);
+
+        // Update
+        $routes->get('edit/(:num)', 'CouponController::edit/$1', ['as' => 'admin.coupon.edit']);
+        $routes->post('update/(:num)', 'CouponController::update/$1', ['as' => 'admin.coupon.update']);
+
+        // Update Multi Column
+        $routes->post('multiStatus', 'CouponController::multiStatus', ['as' => 'admin.coupon.multiStatus']);
+        $routes->post('multiPurgeDestroy', 'CouponController::multiPurgeDestroy', ['as' => 'admin.coupon.multiPurgeDestroy']);
+
+        // Check Exists
+        $routes->post('checkExists', 'CouponController::checkExists', ['as' => 'admin.coupon.checkExists']);
+    });
 });
 
 /*
