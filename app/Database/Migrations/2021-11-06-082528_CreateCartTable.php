@@ -4,7 +4,7 @@ namespace App\Database\Migrations;
 
 use CodeIgniter\Database\Migration;
 
-class CreateWishlistTable extends Migration
+class CreateCartTable extends Migration
 {
     public function up()
     {
@@ -33,11 +33,11 @@ class CreateWishlistTable extends Migration
 			]
 		]);
 		$this->forge->addKey('id', true);
-		$this->forge->createTable('wishlist');
+		$this->forge->createTable('cart');
     }
 
     public function down()
     {
-        $this->forge->dropTable('wishlist');
+        $this->forge->dropTable('cart');
     }
 }

@@ -46,6 +46,7 @@
                     <ul class="search-list search-list-main"></ul>
                 </div>
             </li>
+            <li class="nav-item dropdown dropdown-cart me-25"></li>
             <li class="nav-item dropdown dropdown-notification me-25"><a class="nav-link" href="#" data-bs-toggle="dropdown"><i class="ficon" data-feather="bell"></i><span class="badge rounded-pill bg-danger badge-up">5</span></a>
                 <ul class="dropdown-menu dropdown-menu-media dropdown-menu-end">
                     <li class="dropdown-menu-header">
@@ -154,7 +155,7 @@
                                 <i class="me-50" data-feather="power"></i> Đăng Xuất
                             </a>
                         <?php else : ?>
-                            <a class="dropdown-item" href="<?= route_to('logout') ?>">
+                            <a class="dropdown-item" href="<?= route_to('dang-xuat') ?>">
                                 <i class="me-50" data-feather="power"></i> Đăng Xuất
                             </a>
                         <?php endif; ?>

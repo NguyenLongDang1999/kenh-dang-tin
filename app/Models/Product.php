@@ -448,4 +448,26 @@ class Product extends Model
             ->orderBy('product.created_at', 'desc')
             ->findAll(5);
     }
+
+    public function getListCart($user_id, $count = false)
+    {
+        $model = $this->select('
+            product.name, product.image, product.id, product.slug, product.price, product.sku, product.sale,
+            cart.id as cartID')
+            ->join('cart', 'cart.product_id = product.id')
+            ->join('category', 'category.id = product.cat_id')
+            ->join('users', 'users.id = cart.user_id')
+            ->where('cart.user_id', $user_id)
+            ->where('category.status', STATUS_ACTIVE)
+            ->where('users.active', STATUS_ACTIVE)
+            ->where('product.status', STATUS_ACTIVE)
+            ->orderBy('cart.created_at', 'desc');
+        if ($count) {
+            $model = $model->countAllResults(false);
+        } else {
+            $model = $model->findAll(10);
+        }
+
+        return $model;
+    }
 }

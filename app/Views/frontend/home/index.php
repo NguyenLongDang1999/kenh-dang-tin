@@ -57,8 +57,10 @@ Home Page
 <!-- pageJS -->
 <?= $this->section('pageJS') ?>
 <script>
+    var url_cart_item = "<?= route_to('user.cart.addToCart') ?>";
+    
     $(function() {
-        $('.lazy').lazy();
+        $('.lazy').lazy();  
     })
 </script>
 <?= $this->endSection() ?>

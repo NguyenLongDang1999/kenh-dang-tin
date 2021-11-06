@@ -4,13 +4,13 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-class Wishlist extends Model
+class Cart extends Model
 {
-    protected $table                = 'wishlist';
+    protected $table                = 'cart';
     protected $primaryKey           = 'id';
     protected $useAutoIncrement     = true;
     protected $returnType           = 'object';
-    protected $useSoftDeletes       = true;
+    protected $useSoftDeletes       = false;
 
     protected $allowedFields        = [
         'user_id', 'product_id'
@@ -20,5 +20,12 @@ class Wishlist extends Model
     protected $useTimestamps        = true;
     protected $createdField         = 'created_at';
     protected $updatedField         = 'updated_at';
-    protected $deletedField         = 'deleted_at';
+
+    public function cartExists($product_id, $user_id)
+    {
+        return $this->select('id')
+            ->where('product_id', $product_id)
+            ->where('user_id', $user_id)
+            ->countAllResults();
+    }
 }

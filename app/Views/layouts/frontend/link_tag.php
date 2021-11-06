@@ -4,6 +4,7 @@
 
 <!-- BEGIN: Vendor CSS-->
 <?= link_tag('app-assets/vendors/css/vendors.min.css') ?>
+<?= link_tag('app-assets/vendors/css/extensions/toastr.min.css') ?>
 <?= $this->renderSection('vendorCSS') ?>
 <!-- END: Vendor CSS-->
 
@@ -17,5 +18,6 @@
 
 <!-- BEGIN: Page CSS-->
 <?= link_tag('app-assets/css/core/menu/menu-types/horizontal-menu.min.css') ?>
+<?= link_tag('app-assets/css/plugins/extensions/ext-component-toastr.min.css') ?>
 <?= $this->renderSection('pageCSS') ?>
 <!-- END: Page CSS-->

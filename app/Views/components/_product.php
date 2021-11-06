@@ -61,11 +61,7 @@
                 </ul>
             </div>
             <div class="item-options text-center">
-                <a href="#" class="btn btn-light btn-wishlist">
-                    <i data-feather="heart"></i>
-                    <span>Yêu Thích</span>
-                </a>
-                <a href="#" class="btn btn-primary btn-cart">
+                <a href="#" class="btn btn-primary btn-cart" data-id="<?= esc($item->id) ?>">
                     <i data-feather="shopping-cart"></i>
                     <span class="add-to-cart">Thêm Giỏ Hàng</span>
                 </a>

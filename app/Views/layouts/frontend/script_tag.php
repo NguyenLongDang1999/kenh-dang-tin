@@ -1,5 +1,6 @@
 <!-- BEGIN: Vendor JS-->
 <?= script_tag('app-assets/vendors/js/vendors.min.js') ?>
+<?= script_tag('app-assets/vendors/js/extensions/toastr.min.js') ?>
 <?= $this->renderSection('vendorJS') ?>
 <!-- BEGIN Vendor JS-->
 

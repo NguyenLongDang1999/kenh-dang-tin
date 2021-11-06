@@ -253,7 +253,150 @@
         });
     }
 
+    function showCart() {
+        $.ajax({
+            url: "/showCart",
+            type: "post",
+        }).done(function (data) {
+            $(".dropdown-cart").html(data);
+
+            if ($(".dropdown-cart .scrollable-container.media-list").length) {
+                const updateFavorites = new PerfectScrollbar(
+                    ".dropdown-cart .scrollable-container.media-list"
+                );
+                updateFavorites.update();
+            }
+
+            if (feather) {
+                feather.replace({
+                    width: 14,
+                    height: 14,
+                });
+            }
+        });
+    }
+
+    function showCartPage() {
+        $.ajax({
+            url: "/showCartPage",
+            type: "post",
+        }).done(function (data) {
+            $("#place-order").html(data);
+
+            var quantityCounter = $(".quantity-counter"),
+                CounterMin = 1,
+                CounterMax = 10;
+
+            if (quantityCounter.length > 0) {
+                quantityCounter
+                    .TouchSpin({
+                        min: CounterMin,
+                        max: CounterMax,
+                    })
+                    .on("touchspin.on.startdownspin", function () {
+                        var $this = $(this);
+                        $(".bootstrap-touchspin-up").removeClass(
+                            "disabled-max-min"
+                        );
+                        if ($this.val() == 1) {
+                            $(this)
+                                .siblings()
+                                .find(".bootstrap-touchspin-down")
+                                .addClass("disabled-max-min");
+                        }
+                    })
+                    .on("touchspin.on.startupspin", function () {
+                        var $this = $(this);
+                        $(".bootstrap-touchspin-down").removeClass(
+                            "disabled-max-min"
+                        );
+                        if ($this.val() == 10) {
+                            $(this)
+                                .siblings()
+                                .find(".bootstrap-touchspin-up")
+                                .addClass("disabled-max-min");
+                        }
+                    });
+            }
+
+            if (feather) {
+                feather.replace({
+                    width: 14,
+                    height: 14,
+                });
+            }
+        });
+    }
+
+    function cartAllItem(product_id) {
+        var updateCart = $.ajax({
+            type: "post",
+            url: url_cart_item,
+            data: {
+                product_id: product_id,
+            },
+        });
+        updateCart.done(function (resp) {
+            resp = jQuery.parseJSON(resp);
+            if (resp.result) {
+                toastr["success"]("", resp.message, {
+                    closeButton: true,
+                    tapToDismiss: false,
+                });
+            } else {
+                toastr["error"]("", resp.message, {
+                    closeButton: true,
+                    tapToDismiss: false,
+                });
+            }
+        });
+        updateCart.always(function () {
+            showCart();
+        });
+    }
+
+    function deleteCartItem(product_id) {
+        var deleteCart = $.ajax({
+            type: "post",
+            url: url_delete_cart_item,
+            data: {
+                product_id: product_id,
+            },
+        });
+        deleteCart.done(function (resp) {
+            resp = jQuery.parseJSON(resp);
+            if (resp.result) {
+                toastr["success"]("", resp.message, {
+                    closeButton: true,
+                    tapToDismiss: false,
+                });
+            } else {
+                toastr["error"]("", resp.message, {
+                    closeButton: true,
+                    tapToDismiss: false,
+                });
+            }
+        });
+        deleteCart.always(function () {
+            showCart();
+            showCartPage();
+        });
+    }
+
+    showCart();
+    showCartPage();
+
     // Event
+    $(document).on("click", ".btn-cart", function () {
+        var product_id = $(this).data("id");
+        cartAllItem(product_id);
+    });
+
+    $(document).on("click", ".btn-remove-cart", function () {
+        var product_id = $(this).data("id");
+        deleteCartItem(product_id);
+    });
+
     $(document).on("click", "#btn-delete", function () {
         isChecked()
             ? deleteAllItem($("#frmTbList").serialize())
@@ -376,17 +519,17 @@
     }
 
     if (rating.length) {
-      $(".rating").starRating({
-        starSize: 25,
-        disableAfterRate: false,
-        onHover: function (currentIndex, currentRating, $el) {
-          $(".live-rating").text(currentIndex);
-          $("#rating").val(currentRating);
-        },
-        onLeave: function (currentIndex, currentRating, $el) {
-          $(".live-rating").text(currentRating);
-          $("#rating").val(currentRating);
-        },
-      });
+        $(".rating").starRating({
+            starSize: 25,
+            disableAfterRate: false,
+            onHover: function (currentIndex, currentRating, $el) {
+                $(".live-rating").text(currentIndex);
+                $("#rating").val(currentRating);
+            },
+            onLeave: function (currentIndex, currentRating, $el) {
+                $(".live-rating").text(currentRating);
+                $("#rating").val(currentRating);
+            },
+        });
     }
 })(window);
