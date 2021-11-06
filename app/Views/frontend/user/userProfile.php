@@ -70,7 +70,7 @@ Trang chủ
                         <div class="d-flex align-items-center flex-column">
                             <?= img(showUserImage(user()->avatar), false, ['class' => 'img-fluid rounded mt-3 mb-2', 'id' => 'user-image-profile', 'width' => 110, 'height' => 110, 'alt' => esc(user()->fullname)]) ?>
                             <div class="user-info text-center">
-                                <h4><?= user()->fullname ?></h4>
+                                <h4 class="text-capitalize"><?= user()->fullname ?></h4>
                                 <span class="badge bg-light-secondary"><?= showGender(user()->gender) ?></span>
                             </div>
                         </div>

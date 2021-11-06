@@ -144,6 +144,10 @@
                             <i class="me-50" data-feather="user"></i>
                             Thông Tin Cá Nhân
                         </a>
+                        <a class="dropdown-item <?= getMenuUserActive(route_to('user.cart.index')) ?>" href="<?= route_to('user.cart.index') ?>">
+                            <i class="me-50" data-feather="shopping-cart"></i>
+                            Giỏ Hàng
+                        </a>
                         <div class="dropdown-divider"></div>
                         <?php if (session()->has('social_logged_in')) : ?>
                             <a class="dropdown-item" href="<?= route_to('user.auth.socialLogin') ?>?logout=<?= session()->get('social_logged_in') ?>">

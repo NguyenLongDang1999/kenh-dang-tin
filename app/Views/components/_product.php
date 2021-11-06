@@ -7,6 +7,7 @@
         <?php foreach ($commentRating as $row) : ?>
             <?php $sum += $row->rating ?>
         <?php endforeach; ?>
+
         <div class="card ecommerce-card">
             <div class="text-center position-relative">
                 <a href="<?= route_to('user.product.showDetail', esc($item->slug), esc($item->id)) ?>">

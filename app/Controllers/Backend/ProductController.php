@@ -48,7 +48,7 @@ class ProductController extends BaseController
                     'responsive_id'     => '',
                     'responsive_id'     => esc($row->id),
                     'image'             => img(showProductImage($row->image), false, ['alt' => esc($row->name), 'class' => 'round', 'width' => '120', 'height' => '120']),
-                    'infoProduct'       => $this->infoProduct($row->name, $row->view, $row->catName),
+                    'infoProduct'       => $this->infoProduct($row->name, $row->view, $row->catName, $row->sku),
                     'infoPrice'         => $this->infoPrice($price, $row->sale, $money),
                     'status'            => esc($row->status),
                     'featured'          => esc($row->featured),
@@ -349,10 +349,11 @@ class ProductController extends BaseController
         return json_encode($data);
     }
 
-    private function infoProduct($productName, $view, $catName)
+    private function infoProduct($productName, $view, $catName, $sku)
     {
         $html = '';
         $html .= '<ul class="list-unstyled">';
+        $html .= '<li class="pb-25">Mã sản phẩm: <span class="text-bold-500 text-capitalize">' . esc($sku) . '</span></li>';
         $html .= '<li class="pb-25">Tên sản phẩm: <span class="text-bold-500 text-capitalize">' . esc(character_limiter($productName, 30, '...')) . '</span></li>';
         $html .= '<li class="pb-25">Danh Mục: <span class="text-bold-500 text-capitalize">' . esc(character_limiter($catName, 20, '...')) . '</span></li>';
         $html .= '<li class="pb-25">Lượt Xem: <span class="text-bold-500">' . $view . '</span></li>';

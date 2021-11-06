@@ -47,6 +47,9 @@ $routes->group('', ['namespace' => 'App\Controllers\Frontend'], function ($route
     // Comment
     $routes->post('postComment', 'CommentController::postComment', ['as' => 'user.comment.postComment']);
     $routes->post('showComments', 'CommentController::showComments', ['as' => 'user.comment.showComments']);
+
+    // Cart
+    $routes->get('gio-hang', 'CartController::index', ['as' => 'user.cart.index']);
 });
 
 // Backend

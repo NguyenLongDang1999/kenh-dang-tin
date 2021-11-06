@@ -50,7 +50,7 @@ class Product extends Model
     {
         $model = $this->select('
             product.id, product.name, product.view, product.image, product.status, product.created_at,
-            product.price, product.sale, product.featured,
+            product.price, product.sale, product.featured, product.sku,
             category.name as catName')
             ->join('category', 'category.id = product.cat_id');
 
@@ -240,7 +240,7 @@ class Product extends Model
             if (isset($input['paginate']) && $input['paginate'] != '') {
                 $query = $query->paginate($input['paginate']);
             } else {
-                $query = $query->paginate(18);
+                $query = $query->paginate(24);
             }
         }
 
@@ -324,7 +324,7 @@ class Product extends Model
             if (isset($input['paginate']) && $input['paginate'] != '') {
                 $query = $query->paginate($input['paginate']);
             } else {
-                $query = $query->paginate(18);
+                $query = $query->paginate(24);
             }
         }
 
@@ -412,7 +412,7 @@ class Product extends Model
             if (isset($input['paginate']) && $input['paginate'] != '') {
                 $query = $query->paginate($input['paginate']);
             } else {
-                $query = $query->paginate(18);
+                $query = $query->paginate(24);
             }
         }
 
