@@ -319,17 +319,14 @@
                 Chia Sẻ
               </button>
               <div class="dropdown-menu dropdown-menu-end">
-                <a href="#" class="dropdown-item">
+                <a href="http://www.facebook.com/share.php?u=<?= current_url() ?>" class="dropdown-item">
                   <i data-feather="facebook"></i>
                 </a>
-                <a href="#" class="dropdown-item">
+                <a href="https://twitter.com/share?url=<?= current_url() ?>" class="dropdown-item">
                   <i data-feather="twitter"></i>
                 </a>
-                <a href="#" class="dropdown-item">
-                  <i data-feather="youtube"></i>
-                </a>
-                <a href="#" class="dropdown-item">
-                  <i data-feather="instagram"></i>
+                <a href="http://www.linkedin.com/shareArticle?mini=true&url=<?= current_url() ?>" target="_blank" class="dropdown-item py-50 px-1">
+                  <i data-feather="linkedin" class="font-medium-3"></i>
                 </a>
               </div>
             </div>
