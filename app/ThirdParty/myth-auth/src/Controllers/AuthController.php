@@ -119,7 +119,7 @@ class AuthController extends Controller
 	public function attemptRegister()
 	{
 		$users = model(UserModel::class);
-		
+
 		// Save the user
 		$allowedPostFields = array_merge(['password'], $this->config->validFields, $this->config->personalFields);
 		$user = new User($this->request->getPost($allowedPostFields));
@@ -160,10 +160,6 @@ class AuthController extends Controller
 	 */
 	public function forgotPassword()
 	{
-		if ($this->config->activeResetter === null) {
-			return redirect()->route('login')->with('error', lang('Auth.forgotDisabled'));
-		}
-
 		return $this->_render($this->config->views['forgot'], ['config' => $this->config]);
 	}
 
@@ -173,22 +169,15 @@ class AuthController extends Controller
 	 */
 	public function attemptForgot()
 	{
-		if ($this->config->activeResetter === null) {
-			return redirect()->route('login')->with('error', lang('Auth.forgotDisabled'));
-		}
-
-		$rules = [
-			'email' => [
-				'label' => lang('Auth.emailAddress'),
-				'rules' => 'required|valid_email',
-			],
-		];
-
-		if (!$this->validate($rules)) {
-			return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
-		}
-
 		$users = model(UserModel::class);
+
+		$throttler = service('throttler');
+
+		if ($throttler->check(md5($this->request->getIPAddress()), 2, MINUTE) === false) {
+			if (service('response')->setStatusCode(429)) {
+				return redirect()->back()->withInput()->with('error', 'Bạn không thể gửi yêu cầu liên tục. Vui lòng chờ ' . $throttler->getTokentime() . ' giây');
+			}
+		}
 
 		$user = $users->where('email', $this->request->getPost('email'))->first();
 
@@ -215,10 +204,6 @@ class AuthController extends Controller
 	 */
 	public function resetPassword()
 	{
-		if ($this->config->activeResetter === null) {
-			return redirect()->route('login')->with('error', lang('Auth.forgotDisabled'));
-		}
-
 		$token = $this->request->getGet('token');
 
 		return $this->_render($this->config->views['reset'], [
@@ -235,30 +220,14 @@ class AuthController extends Controller
 	 */
 	public function attemptReset()
 	{
-		if ($this->config->activeResetter === null) {
-			return redirect()->route('login')->with('error', lang('Auth.forgotDisabled'));
-		}
-
 		$users = model(UserModel::class);
 
-		// First things first - log the reset attempt.
 		$users->logResetAttempt(
 			$this->request->getPost('email'),
 			$this->request->getPost('token'),
 			$this->request->getIPAddress(),
 			(string)$this->request->getUserAgent()
 		);
-
-		$rules = [
-			'token'		=> 'required',
-			'email'		=> 'required|valid_email',
-			'password'	 => 'required|strong_password',
-			'pass_confirm' => 'required|matches[password]',
-		];
-
-		if (!$this->validate($rules)) {
-			return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
-		}
 
 		$user = $users->where('email', $this->request->getPost('email'))
 			->where('reset_hash', $this->request->getPost('token'))
