@@ -9,6 +9,17 @@ Giỏ hàng
 <?= link_tag('app-assets/css/pages/app-ecommerce.min.css') ?>
 <?= link_tag('app-assets/css/plugins/forms/form-number-input.min.css') ?>
 <?= link_tag('app-assets/vendors/css/extensions/sweetalert2.min.css') ?>
+
+<style>
+    @media (max-width: 768.98px) {
+        .ecommerce-application .list-view {
+            grid-template-columns: 1fr 1fr !important;
+            -webkit-column-gap: 1rem !important;
+            -moz-column-gap: 1rem !important;
+            column-gap: 1rem !important;
+        }
+    }
+</style>
 <?= $this->endSection() ?>
 <!-- end pageCSS -->
 
