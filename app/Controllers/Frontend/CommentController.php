@@ -111,7 +111,7 @@ class CommentController extends BaseController
             $html = '';
             $getListCommentReply = $this->reply->getReplyByComment($product_id, $id);
             if (count($getListCommentReply) > 0) {
-                if (count($getListCommentReply) > 2) {
+                if (count($getListCommentReply) > 0) {
                     $html .= '<div class="accordion" id="accordionComment">';
                     $html .= '<div class="accordion-item">';
                     $html .= '<h6 class="accordion-header" id="heading' . $id . '">';

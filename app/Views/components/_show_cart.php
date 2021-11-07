@@ -16,7 +16,7 @@
 
                 <div class="list-item align-items-center">
                     <?= img(showProductImage(esc($item->image)), false, ['class' => 'd-block rounded me-1', 'alt' => esc($item->name), 'width' => 62]) ?>
-                    <div class="list-item-body flex-grow-1"><i class="ficon cart-item-remove" data-feather="x"></i>
+                    <div class="list-item-body flex-grow-1">
                         <div class="media-heading" style="width: 13rem">
                             <h6 class="cart-item-title">
                                 <a class="text-body" href="<?= route_to('user.product.showDetail', esc($item->slug), esc($item->id)) ?>"><?= esc($item->name) ?></a>

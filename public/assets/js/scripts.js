@@ -21,7 +21,10 @@
         numeralMask_1 = $(".numeral-mask-1"),
         inputImagesStore = $(".input-images-1"),
         flatPicker = $(".flatpickr"),
-        rating = $(".rating");
+        rating = $(".rating"),
+        sidebarShop = $(".sidebar-shop"),
+        overlay = $(".body-content-overlay"),
+        sidebarToggler = $(".shop-sidebar-toggler");
 
     // Methods
     if (blogImageInput.length) {
@@ -43,6 +46,22 @@
                 );
                 $(".btn-disabled-image").prop("disabled", true);
             }
+        });
+    }
+
+    if (sidebarToggler.length) {
+        sidebarToggler.on("click", function () {
+            sidebarShop.toggleClass("show");
+            overlay.toggleClass("show");
+            $("body").addClass("modal-open");
+        });
+    }
+
+    if (overlay.length) {
+        overlay.on("click", function (e) {
+            sidebarShop.removeClass("show");
+            overlay.removeClass("show");
+            $("body").removeClass("modal-open");
         });
     }
 
@@ -567,4 +586,11 @@
             },
         });
     }
+
+    $(window).on("resize", function () {
+        if ($(window).outerWidth() >= 991) {
+            $(".sidebar-shop").removeClass("show");
+            $(".body-content-overlay").removeClass("show");
+        }
+    });
 })(window);

@@ -32,7 +32,7 @@ class Comment extends Model
             ->where('comment.status', STATUS_ACTIVE)
             ->where('comment.product_id', $product_id)
             ->orderBy('comment.created_at', 'desc')
-            ->paginate(10, 'group1', $page);
+            ->paginate(5, 'group1', $page);
     }
 
     public function checkCommentProductExists($product_id)

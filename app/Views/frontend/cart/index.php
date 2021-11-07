@@ -21,7 +21,6 @@ Giỏ hàng
 
 <!-- pageJS -->
 <?= $this->section('pageJS') ?>
-<?= script_tag('app-assets/js/scripts/pages/app-ecommerce.min.js') ?>
 <script>
     var url_update_cart = "<?= route_to("user.cart.updateToCart") ?>";
 </script>

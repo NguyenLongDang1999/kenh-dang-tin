@@ -49,7 +49,6 @@ Sản phẩm mới nhất tại <?= base_url() ?>
 
 <!-- pageJS -->
 <?= $this->section('pageJS') ?>
-<?= script_tag('app-assets/js/scripts/pages/app-ecommerce.min.js') ?>
 <script>
     $(function() {
         $('.lazy').lazy();
