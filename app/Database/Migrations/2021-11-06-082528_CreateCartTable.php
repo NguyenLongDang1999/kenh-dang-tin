@@ -23,6 +23,11 @@ class CreateCartTable extends Migration
 				'type'       => 'INT',
 				'constraint' => '11',
 			],
+			'quantity'       => [
+				'type'       => 'INT',
+				'constraint' => '11',
+				'default'    => '1',
+			],
 			'created_at'       => [
 				'type'       => 'DATETIME',
 				'null' => true

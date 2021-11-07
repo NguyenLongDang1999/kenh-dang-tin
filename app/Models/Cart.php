@@ -13,7 +13,7 @@ class Cart extends Model
     protected $useSoftDeletes       = false;
 
     protected $allowedFields        = [
-        'user_id', 'product_id'
+        'user_id', 'product_id', 'quantity'
     ];
 
     // Dates
@@ -23,9 +23,9 @@ class Cart extends Model
 
     public function cartExists($product_id, $user_id)
     {
-        return $this->select('id')
+        return $this->select('id, quantity')
             ->where('product_id', $product_id)
             ->where('user_id', $user_id)
-            ->countAllResults();
+            ->find();
     }
 }

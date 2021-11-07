@@ -28,13 +28,12 @@ class CartController extends BaseController
 			$product_id = $this->request->getPost('product_id');
 
 			$cartExists = $this->cart->cartExists($product_id, user_id());
+			$data = [
+				'product_id' => $product_id,
+				'user_id' => user_id(),
+			];
 
-			if (isset($product_id) && $product_id !== null && $cartExists === 0) {
-				$data = [
-					'product_id' => $product_id,
-					'user_id' => user_id(),
-				];
-
+			if (isset($product_id) && $product_id !== null && count($cartExists) === 0) {
 				if ($this->cart->insert($data)) {
 					$data['result'] = true;
 					$data['message'] = '<span class="text-capitalize">Thêm vào giỏ hàng thành công.</span>';
@@ -42,8 +41,34 @@ class CartController extends BaseController
 				}
 			}
 
+			$this->cart->update($cartExists[0]->id, ['quantity' => $cartExists[0]->quantity + 1]);
+			$data['result'] = true;
+			$data['message'] = '<span class="text-capitalize">Thêm vào giỏ hàng thành công.</span>';
+			return json_encode($data);
+		}
+    }
+
+	public function updateToCart()
+    {
+        if ($this->request->isAjax()) {
+			$cart_id = $this->request->getPost('cart_id');
+			$quantity = $this->request->getPost('quantity');
+
+			if (isset($cart_id) && $cart_id !== null) {
+				$input = [
+					'quantity' => $quantity,
+				];
+
+				if ($this->cart->update($cart_id, $input)) {
+					$data['result'] = true;
+					$data['qty'] = $input['quantity'];
+					$data['message'] = '<span class="text-capitalize">Cập nhật vào giỏ hàng thành công.</span>';
+					return json_encode($data);
+				}
+			}
+
 			$data['result'] = false;
-			$data['message'] = '<span class="text-capitalize">Sản phẩm đã có trong giỏ hàng.</span>';
+			$data['message'] = '<span class="text-capitalize">Lỗi.</span>';
 			return json_encode($data);
 		}
     }

@@ -452,8 +452,9 @@ class Product extends Model
     public function getListCart($user_id, $count = false)
     {
         $model = $this->select('
-            product.name, product.image, product.id, product.slug, product.price, product.sku, product.sale,
-            cart.id as cartID')
+            product.name, product.image, product.id, product.slug, product.price, product.sku, product.sale, 
+            product.quantity as productQuantity,
+            cart.id as cartID, cart.quantity as cartQuantity')
             ->join('cart', 'cart.product_id = product.id')
             ->join('category', 'category.id = product.cat_id')
             ->join('users', 'users.id = cart.user_id')

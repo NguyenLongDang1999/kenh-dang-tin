@@ -51,6 +51,7 @@ $routes->group('', ['namespace' => 'App\Controllers\Frontend'], function ($route
     // Cart
     $routes->get('gio-hang', 'CartController::index', ['as' => 'user.cart.index']);
     $routes->post('addToCart', 'CartController::addToCart', ['as' => 'user.cart.addToCart']);
+    $routes->post('updateToCart', 'CartController::updateToCart', ['as' => 'user.cart.updateToCart']);
     $routes->post('showCart', 'CartController::showCart', ['as' => 'user.cart.showCart']);
     $routes->post('showCartPage', 'CartController::showCartPage', ['as' => 'user.cart.showCartPage']);
     $routes->post('deleteCart', 'CartController::deleteCart', ['as' => 'user.cart.deleteCart']);

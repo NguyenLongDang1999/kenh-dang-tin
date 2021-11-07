@@ -1,66 +1,80 @@
-<div class="checkout-items" id="cart-table">
-    <?php if (count($getListCart)) : ?>
-        <?php foreach ($getListCart as $item) : ?>
-
-            <?php $price = $item->price - ($item->price * ($item->sale / 100)); ?>
-            <?php $sum += $price; ?>
-
-            <div class="card ecommerce-card">
-                <a href="<?= route_to('user.product.showDetail', esc($item->slug), esc($item->id)) ?>">
-                    <?= img(showProductImage(esc($item->image)), false, ['class' => 'card-img-top card-img height-200', 'alt' => esc($item->name)]) ?>
-                </a>
-                <div class="card-body">
-                    <div class="item-name">
-                        <h6 class="mb-0"><a href="<?= route_to('user.product.showDetail', esc($item->slug), esc($item->id)) ?>" class="text-body"><?= esc($item->name) ?></a></h6>
-                        <span class="item-company">Mã sản phẩm: <a href="#" class="company-name"><?= esc($item->sku) ?></a></span>
-                        <!-- <div class="item-rating">
-                                <ul class="unstyled-list list-inline">
-                                    <li class="ratings-list-item"><i data-feather="star" class="filled-star"></i></li>
-                                    <li class="ratings-list-item"><i data-feather="star" class="filled-star"></i></li>
-                                    <li class="ratings-list-item"><i data-feather="star" class="filled-star"></i></li>
-                                    <li class="ratings-list-item"><i data-feather="star" class="filled-star"></i></li>
-                                    <li class="ratings-list-item"><i data-feather="star" class="unfilled-star"></i></li>
-                                </ul>
-                            </div> -->
-                    </div>
-                    <div class="item-quantity">
-                        <span class="quantity-title">Qty:</span>
-                        <div class="quantity-counter-wrapper">
-                            <div class="input-group">
-                                <input type="text" class="quantity-counter" value="1" />
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="item-options text-center">
-                    <div class="item-wrapper">
-                        <div class="item-cost">
-                            <h4 class="item-price"><?= esc(number_to_amount($price, 2, 'vi_VN')) ?></h4>
-                        </div>
-                    </div>
-                    <button type="button" class="btn btn-primary mt-1 btn-remove-cart" data-id="<?= esc($item->cartID) ?>">
-                        <i data-feather="x" class="align-middle me-25"></i>
-                        <span>Xóa</span>
-                    </button>
-                </div>
+<div class="row">
+    <div class="col-md-9">
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title text-capitalize">Giỏ hàng của tôi</h4>
             </div>
-        <?php endforeach; ?>
-    <?php else : ?>
-        <span class="text-danger text-capitalize d-block py-1 text-center">Giỏ Hàng Trống.</span>
-    <?php endif; ?>
-</div>
-
-<div class="checkout-options">
-    <div class="card">
-        <div class="card-body">
-            <label class="section-label form-label mb-1">Options</label>
-            <div class="coupons input-group input-group-merge">
-                <input type="text" class="form-control" placeholder="Coupons" aria-label="Coupons" aria-describedby="input-coupons" />
-                <span class="input-group-text text-primary ps-1" id="input-coupons">Áp dụng</span>
+            <div class="table-responsive">
+                <table class="table table-white-space">
+                    <thead class="table-light">
+                        <tr>
+                            <th>Hình Ảnh</th>
+                            <th>Tên Sản Phẩm</th>
+                            <th>Số Lượng</th>
+                            <th>Giá Sản Phẩm</th>
+                            <th>Thao Tác</th>
+                        </tr>
+                    </thead>
+                    <tbody id="cart-table">
+                        <?php if (count($getListCart)) : ?>
+                            <?php foreach ($getListCart as $item) : ?>
+                                <?php $price = ($item->price - ($item->price * ($item->sale / 100))) * $item->cartQuantity; ?>
+                                <?php $sum += $price; ?>
+                                <tr>
+                                    <td>
+                                        <a href="<?= route_to('user.product.showDetail', esc($item->slug), esc($item->id)) ?>">
+                                            <?= img(showProductImage(esc($item->image)), false, ['class' => 'me-75', 'height' => 50, 'width' => 50, 'alt' => esc($item->name)]) ?>
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <a href="<?= route_to('user.product.showDetail', esc($item->slug), esc($item->id)) ?>" class="text-description" data-bs-toggle="tooltip" data-bs-placement="top" title="<?= esc($item->name) ?>">
+                                            <span class="fw-bold text-body"><?= esc(character_limiter($item->name, 20, '...')) ?></span>
+                                        </a>
+                                        <div>
+                                            SKU:
+                                            <strong><?= esc($item->sku) ?></strong>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="quantity-counter-wrapper">
+                                            <div class="input-group">
+                                                <input type="text" class="quantity-counter" value="<?= esc($item->cartQuantity) ?>" data-quantity="<?= esc($item->cartQuantity) ?>" data-product="<?= esc($item->productQuantity) ?>" data-id="<?= esc($item->cartID) ?>" />
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <span id="change-price"><?= esc(number_to_amount($price, 2, 'vi_VN')) ?></span>
+                                    </td>
+                                    <td>
+                                        <button type="button" class="btn btn-primary mt-1 btn-remove-cart" data-id="<?= esc($item->cartID) ?>">
+                                            <i data-feather="x" class="align-middle me-25"></i>
+                                            <span>Xóa</span>
+                                        </button>
+                                    </td>
+                                </tr>
+                            <?php endforeach; ?>
+                        <?php else : ?>
+                            <tr>
+                                <td colspan="5" class="text-center text-danger">Giỏ Hàng Không Có Sản Phẩm</td>
+                            </tr>
+                        <?php endif; ?>
+                    </tbody>
+                </table>
             </div>
-            <hr />
-            <div class="price-details">
-                <!-- <h6 class="price-title">Price Details</h6>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="card">
+            <div class="card-body">
+                <label class="section-label form-label mb-1">Options</label>
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Coupons" />
+                    <button class="btn btn-outline-primary" id="button-addon2" type="button">Áp Dụng</button>
+                </div>
+                <hr />
+                <div class="price-details">
+                    <!-- <h6 class="price-title">Price Details</h6>
                     <ul class="list-unstyled">
                         <li class="price-detail">
                             <div class="detail-title">Total MRP</div>
@@ -84,15 +98,16 @@
                         </li>
                     </ul>
                     <hr /> -->
-                <ul class="list-unstyled">
-                    <li class="price-detail">
-                        <div class="detail-title detail-total">Tổng Tiền</div>
-                        <div class="detail-amt fw-bolder"><?= esc(number_to_amount($sum, 2, 'vi_VN')) ?></div>
-                    </li>
-                </ul>
-                <button type="button" class="btn btn-primary w-100 btn-next place-order">Thanh Toán</button>
+                    <ul class="list-unstyled">
+                        <li class="price-detail d-flex justify-content-between">
+                            <div class="detail-title detail-total">Tổng Tiền</div>
+                            <div class="detail-amt fw-bolder"><?= esc(number_to_amount($sum, 2, 'vi_VN')) ?></div>
+                        </li>
+                    </ul>
+                    <button type="button" class="btn btn-primary w-100 btn-next place-order">Thanh Toán</button>
+                </div>
             </div>
         </div>
+        <!-- Checkout Place Order Right ends -->
     </div>
-    <!-- Checkout Place Order Right ends -->
 </div>

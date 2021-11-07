@@ -284,41 +284,68 @@
         }).done(function (data) {
             $("#place-order").html(data);
 
-            var quantityCounter = $(".quantity-counter"),
-                CounterMin = 1,
-                CounterMax = 10;
+            var quantityCounter = $(".quantity-counter");
 
-            if (quantityCounter.length > 0) {
-                quantityCounter
-                    .TouchSpin({
-                        min: CounterMin,
-                        max: CounterMax,
-                    })
-                    .on("touchspin.on.startdownspin", function () {
-                        var $this = $(this);
-                        $(".bootstrap-touchspin-up").removeClass(
-                            "disabled-max-min"
-                        );
-                        if ($this.val() == 1) {
-                            $(this)
-                                .siblings()
-                                .find(".bootstrap-touchspin-down")
-                                .addClass("disabled-max-min");
-                        }
-                    })
-                    .on("touchspin.on.startupspin", function () {
-                        var $this = $(this);
-                        $(".bootstrap-touchspin-down").removeClass(
-                            "disabled-max-min"
-                        );
-                        if ($this.val() == 10) {
-                            $(this)
-                                .siblings()
-                                .find(".bootstrap-touchspin-up")
-                                .addClass("disabled-max-min");
-                        }
-                    });
-            }
+            quantityCounter.each(function (index, item) {
+                var CounterMin = 1,
+                    CounterMax = $(item).data("product");
+
+                if ($(item).length > 0) {
+                    $(item)
+                        .TouchSpin({
+                            min: CounterMin,
+                            max: CounterMax,
+                        })
+                        .on("change", function () {
+                            $.ajax({
+                                url: url_update_cart,
+                                type: "post",
+                                data: {
+                                    cart_id: $(item).data("id"),
+                                    quantity: $(item).val(),
+                                },
+                            }).done(function (resp) {
+                                resp = jQuery.parseJSON(resp);
+                                if (resp.result) {
+                                    showCartPage();
+                                    toastr["success"]("", resp.message, {
+                                        closeButton: true,
+                                        tapToDismiss: false,
+                                    });
+                                } else {
+                                    toastr["error"]("", resp.message, {
+                                        closeButton: true,
+                                        tapToDismiss: false,
+                                    });
+                                }
+                            });
+                        })
+                        .on("touchspin.on.startdownspin", function () {
+                            var $this = $(this);
+                            $(".bootstrap-touchspin-up").removeClass(
+                                "disabled-max-min"
+                            );
+                            if ($this.val() == CounterMin) {
+                                $(this)
+                                    .siblings()
+                                    .find(".bootstrap-touchspin-down")
+                                    .addClass("disabled-max-min");
+                            }
+                        })
+                        .on("touchspin.on.startupspin", function () {
+                            var $this = $(this);
+                            $(".bootstrap-touchspin-down").removeClass(
+                                "disabled-max-min"
+                            );
+                            if ($this.val() == CounterMax) {
+                                $(this)
+                                    .siblings()
+                                    .find(".bootstrap-touchspin-up")
+                                    .addClass("disabled-max-min");
+                            }
+                        });
+                }
+            });
 
             if (feather) {
                 feather.replace({
