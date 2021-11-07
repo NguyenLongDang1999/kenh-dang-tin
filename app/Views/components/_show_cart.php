@@ -11,7 +11,7 @@
         <?php if (count($getListCart)) : ?>
             <?php foreach ($getListCart as $item) : ?>
                 
-                <?php $price = $item->price - ($item->price * ($item->sale / 100)); ?>
+                <?php $price = ($item->price - ($item->price * ($item->sale / 100))) * $item->cartQuantity; ?>
                 <?php $sum += $price; ?>
 
                 <div class="list-item align-items-center">
@@ -21,7 +21,8 @@
                             <h6 class="cart-item-title">
                                 <a class="text-body" href="<?= route_to('user.product.showDetail', esc($item->slug), esc($item->id)) ?>"><?= esc($item->name) ?></a>
                             </h6>
-                            <small class="cart-item-by"><?= esc($item->sku) ?></small>
+                            <small class="cart-item-by">SKU: <?= esc($item->sku) ?></small>
+                            <small class="cart-item-by">Số Lượng: <?= esc($item->cartQuantity) ?></small>
                         </div>
                         <h5 class="cart-item-price" style="width: 7rem"><?= esc(number_to_amount($price, 2, 'vi_VN')) ?></h5>
                     </div>
@@ -37,6 +38,6 @@
             <h6 class="text-primary fw-bolder mb-0"><?= esc(number_to_amount($sum, 2, 'vi_VN')) ?></h6>
         </div>
         <a class="btn btn-light w-100 mb-1" href="<?= route_to('user.cart.index') ?>">Xem Giỏ Hàng</a>
-        <a class="btn btn-primary w-100" href="app-ecommerce-checkout.html">Thanh Toán</a>
+        <a class="btn btn-primary w-100" href="<?= route_to('user.checkout.index') ?>">Thanh Toán</a>
     </li>
 </ul>

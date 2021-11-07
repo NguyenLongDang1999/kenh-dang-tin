@@ -104,7 +104,9 @@
                             <div class="detail-amt fw-bolder"><?= esc(number_to_amount($sum, 2, 'vi_VN')) ?></div>
                         </li>
                     </ul>
-                    <button type="button" class="btn btn-primary w-100 btn-next place-order">Thanh Toán</button>
+                    <a href="<?= route_to('user.checkout.index') ?>" class="btn btn-primary w-100 btn-next place-order">
+                        Thanh Toán
+                    </a>
                 </div>
             </div>
         </div>

@@ -55,6 +55,9 @@ $routes->group('', ['namespace' => 'App\Controllers\Frontend'], function ($route
     $routes->post('showCart', 'CartController::showCart', ['as' => 'user.cart.showCart']);
     $routes->post('showCartPage', 'CartController::showCartPage', ['as' => 'user.cart.showCartPage']);
     $routes->post('deleteCart', 'CartController::deleteCart', ['as' => 'user.cart.deleteCart']);
+
+    // Checkout
+    $routes->get('thanh-toan-don-hang', 'CheckoutController::index', ['as' => 'user.checkout.index']);
 });
 
 // Backend
