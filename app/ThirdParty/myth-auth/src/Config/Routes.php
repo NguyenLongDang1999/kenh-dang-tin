@@ -10,6 +10,7 @@ $routes->group('', ['namespace' => 'Myth\Auth\Controllers'], function ($routes) 
     // Update Infomation
     $routes->post('update-profile', 'AuthController::updateProfile', ['as' => 'user.auth.updateProfile']);
     $routes->post('update-password', 'AuthController::updatePassword', ['as' => 'user.auth.updatePassword']);
+    $routes->post('update-email', 'AuthController::updateEmail', ['as' => 'user.auth.updateEmail']);
     $routes->post('delete-image-user', 'AuthController::deleteImageUser', ['as' => 'user.auth.deleteImageUser']);
 
     // Login/out

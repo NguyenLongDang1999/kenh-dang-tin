@@ -407,6 +407,41 @@ class AuthController extends Controller
 		return redirect()->route('user.auth.userProfile')->with("message", 'Mật khẩu đã được cập nhật thành công!');
 	}
 
+	public function updateEmail()
+	{
+		$users = model(UserModel::class);
+		$user = $users->where('id', user_id())->first();
+		if (!password_verify(base64_encode(hash('sha384', $this->request->getPost('password_current'), true)), $user->password_hash)) {
+			return redirect()->route('user.auth.edit')->with('error', "Mật khẩu cũ nhập không chính xác. Vui lòng thử lại!");
+		}
+
+		if (is_null($user)) {
+			return redirect()->route('user.auth.userProfile')->with('error', lang('Auth.activationNoUser'));
+		}
+
+
+		$user->new_email = $this->request->getPost('email');
+		$user->activate_hash = bin2hex(random_bytes(16));
+		$users->save($user);
+
+		if ($this->config->requireActivation !== false) {
+			$activator = service('activator');
+			$user->email = $user->new_email;
+			$user->active_new_email = true;
+			$sent = $activator->send($user);
+
+			if (!$sent) {
+				return redirect()->back()->withInput()->with('error', $activator->error() ?? lang('Auth.unknownError'));
+			}
+
+			// Success!
+			return redirect()->route('user.auth.userProfile')->with('message', lang('Auth.activationSuccess'));
+		}
+
+		// Success!
+		return redirect()->route('user.auth.userProfile')->with('message', lang('Auth.registerSuccess'));
+	}
+
 	public function deleteImageUser()
 	{
 		if ($this->request->isAJAX()) {

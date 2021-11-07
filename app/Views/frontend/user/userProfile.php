@@ -128,6 +128,13 @@ Trang chủ
                         <span class="fw-bold text-capitalize d-none d-md-block">Đổi mật khẩu</span>
                     </a>
                 </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" id="pill-change-email" data-bs-toggle="pill" href="#change-email" aria-expanded="true">
+                        <i data-feather="mail" class="font-medium-3 m-0 me-md-50" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Đổi E-mail"></i>
+                        <span class="fw-bold text-capitalize d-none d-md-block">Đổi E-mail</span>
+                    </a>
+                </li>
             </ul>
 
             <div class="tab-content">
@@ -143,6 +150,14 @@ Trang chủ
                     <div class="card">
                         <div class="card-body">
                             <?= $this->include('frontend/user/components/updatePassword') ?>
+                        </div>
+                    </div>
+                </div>
+
+                <div role="tabpanel" class="tab-pane" id="change-email" aria-labelledby="pill-change-email" aria-expanded="true">
+                    <div class="card">
+                        <div class="card-body">
+                            <?= $this->include('frontend/user/components/updateEmail') ?>
                         </div>
                     </div>
                 </div>
